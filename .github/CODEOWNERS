@@ -1,0 +1,16 @@
+# CODEOWNERS - Auto-request reviews on PRs
+# GitHub automatically requests review from code owners on PRs
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for all code
+* @mishaal79
+
+# Critical infrastructure requires review
+/.github/workflows/* @mishaal79
+/astro.config.mjs @mishaal79
+/package.json @mishaal79
+/bun.lockb @mishaal79
+
+# Deployment and configuration
+/wrangler.toml @mishaal79
+/.env.example @mishaal79

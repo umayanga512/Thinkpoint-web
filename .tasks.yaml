@@ -1,0 +1,427 @@
+version: '3'
+
+vars:
+  CMS_CHOICE: strapi
+  CMS_URL: http://localhost:1337
+  PROJECT_ROOT: .
+  ASTRO_DEV_PORT: 3000
+  STRAPI_PORT: 1337
+  SANITY_DATASET: production
+  SANITY_PROJECT_ID: your-project-id
+  AI_MODEL: gpt-4-turbo # Alternative: claude-3-opus
+
+env:
+  NODE_ENV: development
+
+tasks:
+  # Architecture Improvement Tasks
+  architecture:improve-component-structure:
+    desc: Reorganize components into logical subdirectories (ui, sections, forms, data-display)
+    metadata:
+      priority: High
+      timeframe: Immediate (1-2 hours)
+      ai_effort: Single prompt + 1-2 refinement rounds
+      prompting_strategy:
+        - 'Analyze current component structure in src/components'
+        - 'Suggest logical grouping based on component purpose'
+        - 'Generate commands to create new directory structure'
+        - 'Provide component relocation recommendations'
+      token_usage_estimate: 4K-8K tokens
+    cmds:
+      - mkdir -p src/components/ui src/components/sections src/components/forms src/components/data-display
+      - echo "Move components to appropriate directories, refactor large components into smaller ones"
+
+  architecture:refine-layout-strategy:
+    desc: Ensure Layout.astro is minimal and BlogLayout.astro extends it
+    metadata:
+      priority: High
+      timeframe: Immediate (1 hour)
+      ai_effort: Single prompt + 1 refinement round
+      prompting_strategy:
+        - 'Analyze existing Layout.astro and BlogLayout.astro files'
+        - 'Identify shared code between layouts'
+        - 'Generate refactored code for both layouts'
+        - 'Ensure BlogLayout properly extends Layout'
+      token_usage_estimate: 3K-6K tokens
+    cmds:
+      - echo "Refactoring Layout.astro to contain only base structure"
+      - echo "Updating BlogLayout.astro to import and extend Layout.astro"
+
+  architecture:enhance-content-collections:
+    desc: Strengthen content collection schemas with Zod and add new collections
+    metadata:
+      priority: High
+      timeframe: Short-term (2-3 hours)
+      ai_effort: 2-3 prompts + refinement
+      prompting_strategy:
+        - 'Analyze current content/config.ts file'
+        - 'Generate enhanced Zod schemas for existing collections'
+        - 'Create schemas for new collections (news)'
+        - 'Implement robust validation and type safety'
+      token_usage_estimate: 5K-10K tokens
+    cmds:
+      - echo "Updating src/content/config.ts with stronger Zod schemas"
+      - echo "Adding news collection if distinct from blog"
+      - mkdir -p src/content/news
+
+  architecture:centralize-utilities:
+    desc: Organize utility functions into dedicated modules
+    metadata:
+      priority: Medium
+      timeframe: Short-term (1-2 hours)
+      ai_effort: Single prompt + code generation
+      prompting_strategy:
+        - 'Identify utility functions scattered throughout codebase'
+        - 'Categorize functions by purpose (date, text, API, etc.)'
+        - 'Generate modular structure for utils directory'
+        - 'Refactor functions with proper exports/imports'
+      token_usage_estimate: 3K-7K tokens
+    cmds:
+      - mkdir -p src/utils/date src/utils/api src/utils/text
+      - echo "Moving utility functions to appropriate modules"
+
+  architecture:optimize-assets:
+    desc: Ensure proper asset handling between public/ and src/assets/
+    metadata:
+      priority: Medium
+      timeframe: Short-term (1-2 hours)
+      ai_effort: Analysis prompt + implementation prompt
+      prompting_strategy:
+        - 'Analyze current asset usage throughout the codebase'
+        - 'Identify assets that should be processed vs. static'
+        - 'Generate migration plan for asset reorganization'
+        - 'Create Image/Picture component implementations'
+      token_usage_estimate: 4K-8K tokens
+    cmds:
+      - echo "Auditing assets and moving as appropriate"
+      - echo "Implementing Image and Picture components for optimization"
+
+  architecture:enhance-type-safety:
+    desc: Improve TypeScript usage across the project
+    metadata:
+      priority: Medium
+      timeframe: Short-term (3-4 hours)
+      ai_effort: Multiple prompts over several interactions
+      prompting_strategy:
+        - 'Analyze current TypeScript configuration'
+        - 'Identify areas with missing or weak typing'
+        - 'Generate updates to tsconfig.json for stricter rules'
+        - 'Implement proper types for component props'
+        - 'Add type definitions for critical interfaces'
+      token_usage_estimate: 6K-12K tokens
+    cmds:
+      - echo "Updating tsconfig.json for strict type checking"
+      - echo "Adding proper typing to component props"
+
+  architecture:implement-testing:
+    desc: Set up testing infrastructure
+    metadata:
+      priority: Medium
+      timeframe: Medium-term (3-4 hours)
+      ai_effort: Multiple prompts with code generation
+      prompting_strategy:
+        - 'Generate Vitest configuration for unit tests'
+        - 'Set up Playwright for E2E tests'
+        - 'Create sample test files for critical components'
+        - 'Set up testing scripts in package.json'
+      token_usage_estimate: 5K-10K tokens
+    cmds:
+      - echo "Installing Vitest for unit tests"
+      - echo "Installing Playwright for E2E tests"
+      - mkdir -p tests/unit tests/e2e
+
+  architecture:improve-seo:
+    desc: Centralize and enhance SEO settings
+    metadata:
+      priority: High
+      timeframe: Short-term (2 hours)
+      ai_effort: 2-3 prompts with implementation code
+      prompting_strategy:
+        - 'Analyze current SEO implementation'
+        - 'Design centralized SEO utility'
+        - 'Implement Schema.org structured data'
+        - 'Create helpers for common SEO patterns'
+      token_usage_estimate: 4K-8K tokens
+    cmds:
+      - echo "Creating dedicated SEO utility in src/utils/seo.ts"
+      - echo "Implementing structured data for blog posts"
+
+  architecture:setup-state-management:
+    desc: Add lightweight state management if needed
+    metadata:
+      priority: Low
+      timeframe: Medium-term (2-3 hours)
+      ai_effort: Analysis prompt + implementation prompts
+      prompting_strategy:
+        - 'Analyze current state management patterns'
+        - 'Determine if nanostores is necessary'
+        - 'Design store structure for critical state'
+        - 'Implement state management patterns'
+      token_usage_estimate: 4K-8K tokens
+    cmds:
+      - echo "Installing nanostores if complex client-side state is needed"
+      - echo "Setting up store modules in src/stores/"
+
+  architecture:add-linting:
+    desc: Ensure consistent code formatting and linting
+    metadata:
+      priority: Medium
+      timeframe: Short-term (1 hour)
+      ai_effort: Single configuration prompt
+      prompting_strategy:
+        - 'Generate ESLint configuration with Astro plugins'
+        - 'Create Prettier configuration'
+        - 'Set up Husky pre-commit hooks'
+        - 'Add lint scripts to package.json'
+      token_usage_estimate: 3K-5K tokens
+    cmds:
+      - echo "Installing and configuring ESLint with Astro plugins"
+      - echo "Setting up Husky pre-commit hooks"
+
+  # CMS Setup and Integration Tasks
+  cms:setup-strapi:
+    desc: Set up Strapi CMS
+    metadata:
+      priority: High
+      timeframe: Immediate (1-2 hours)
+      ai_effort: Configuration + code generation prompts
+      prompting_strategy:
+        - 'Generate Strapi installation and configuration commands'
+        - 'Create initial content types guide'
+        - 'Set up authentication configuration'
+        - 'Configure API permissions'
+      token_usage_estimate: 4K-8K tokens
+    cmds:
+      - npx create-strapi-app@latest cms --quickstart
+      - cd cms && npm run develop
+
+  cms:setup-sanity:
+    desc: Set up Sanity CMS (alternative option)
+    metadata:
+      priority: Medium
+      timeframe: Immediate (1-2 hours)
+      ai_effort: Configuration + schema generation prompts
+      prompting_strategy:
+        - 'Generate Sanity installation commands'
+        - 'Create schema definitions for content types'
+        - 'Configure Sanity Studio dashboard'
+        - 'Set up API access and tokens'
+      token_usage_estimate: 4K-8K tokens
+    cmds:
+      - npm create sanity@latest -- --create-project "{{.PROJECT_NAME}}" --dataset "{{.SANITY_DATASET}}" --output-path cms
+
+  cms:model-content:
+    desc: Define content models in chosen CMS
+    metadata:
+      priority: High
+      timeframe: Short-term (3-4 hours)
+      ai_effort: Multiple detailed schema generation prompts
+      prompting_strategy:
+        - 'Design content models based on website needs'
+        - 'Generate schema code for all content types'
+        - 'Create relationships between content types'
+        - 'Set up validation rules and field types'
+        - 'Implement media handling and rich text fields'
+      token_usage_estimate: 8K-15K tokens
+    vars:
+      CMS_DIR: cms
+    cmds:
+      - echo "Creating content schemas for blog posts, pages, etc. in {{.CMS_CHOICE}}"
+
+  cms:integrate-with-astro:
+    desc: Connect Astro with CMS API
+    metadata:
+      priority: High
+      timeframe: Short-term (4-5 hours)
+      ai_effort: Multiple implementation prompts
+      prompting_strategy:
+        - 'Design API client architecture'
+        - 'Generate API utility functions'
+        - 'Implement data fetching in Astro pages'
+        - 'Create type definitions for API responses'
+        - 'Handle error states and loading UI'
+      token_usage_estimate: 10K-20K tokens
+    cmds:
+      - echo "Installing necessary API client packages"
+      - echo "Setting up API fetching in src/utils/api/cms.ts"
+      - echo "Replacing static content with API calls"
+
+  # AI Pipeline Integration Tasks
+  ai:setup-pipeline:
+    desc: Set up AI content processing pipeline
+    metadata:
+      priority: Medium
+      timeframe: Medium-term (6-8 hours)
+      ai_effort: Complex system design + implementation
+      prompting_strategy:
+        - 'Design AI pipeline architecture'
+        - 'Generate core pipeline components'
+        - 'Implement content processing logic'
+        - 'Create prompt templates for different content types'
+        - 'Build evaluation and feedback mechanisms'
+      token_usage_estimate: 15K-30K tokens
+    cmds:
+      - mkdir -p ai-pipeline
+      - echo "Creating base AI pipeline infrastructure"
+
+  ai:connect-cms:
+    desc: Connect CMS with AI pipeline via webhooks and API
+    metadata:
+      priority: Medium
+      timeframe: Medium-term (4-5 hours)
+      ai_effort: Integration design + implementation
+      prompting_strategy:
+        - 'Design webhook architecture'
+        - 'Generate webhook handler code'
+        - 'Implement API endpoints for AI pipeline'
+        - 'Create authentication between systems'
+        - 'Set up error handling and retry logic'
+      token_usage_estimate: 10K-20K tokens
+    cmds:
+      - echo "Setting up webhooks in {{.CMS_CHOICE}} to trigger AI processing"
+      - echo "Creating API endpoints for AI pipeline to update content"
+
+  ai:implement-crossposting:
+    desc: Build cross-posting capabilities
+    metadata:
+      priority: Medium
+      timeframe: Medium-term (5-6 hours)
+      ai_effort: Multiple integration prompts
+      prompting_strategy:
+        - 'Research API requirements for target platforms'
+        - 'Design cross-posting architecture'
+        - 'Generate API connectors for each platform'
+        - 'Implement content adaptation for each platform'
+        - 'Create scheduling and tracking system'
+      token_usage_estimate: 12K-25K tokens
+    cmds:
+      - echo "Setting up API connectors for external platforms"
+      - echo "Creating cross-posting logic in AI pipeline"
+
+  ai:setup-analytics:
+    desc: Implement content analytics
+    metadata:
+      priority: Medium
+      timeframe: Medium-term (4-5 hours)
+      ai_effort: Analytics design + implementation
+      prompting_strategy:
+        - 'Design analytics data model'
+        - 'Implement tracking with PostHog'
+        - 'Create analytics dashboard'
+        - 'Generate visualization components'
+        - 'Build reporting mechanisms'
+      token_usage_estimate: 10K-20K tokens
+    cmds:
+      - echo "Setting up PostHog tracking with content IDs"
+      - echo "Creating analytics dashboard in separate service or CMS"
+
+  # Deployment Tasks
+  deploy:cms:
+    desc: Deploy CMS to production
+    metadata:
+      priority: High
+      timeframe: Medium-term (2-3 hours)
+      ai_effort: Deployment configuration prompts
+      prompting_strategy:
+        - 'Generate deployment configuration'
+        - 'Create environment variable setup'
+        - 'Implement database configuration'
+        - 'Set up production optimization'
+      token_usage_estimate: 5K-10K tokens
+    cmds:
+      - task: cms:setup-{{.CMS_CHOICE}}
+      - echo "Deploying {{.CMS_CHOICE}} to production"
+
+  deploy:frontend:
+    desc: Deploy Astro frontend
+    metadata:
+      priority: High
+      timeframe: Medium-term (1-2 hours)
+      ai_effort: Deployment configuration prompt
+      prompting_strategy:
+        - 'Generate build configuration'
+        - 'Create deployment workflow'
+        - 'Implement environment variables'
+        - 'Set up CDN configuration'
+      token_usage_estimate: 4K-8K tokens
+    cmds:
+      - npm run build
+      - echo "Deploying Astro site to production"
+
+  deploy:ai-pipeline:
+    desc: Deploy AI pipeline
+    metadata:
+      priority: Medium
+      timeframe: Long-term (3-4 hours)
+      ai_effort: Complex deployment configuration
+      prompting_strategy:
+        - 'Design serverless architecture'
+        - 'Generate cloud function configurations'
+        - 'Implement environment setup'
+        - 'Create monitoring and logging'
+      token_usage_estimate: 8K-15K tokens
+    cmds:
+      - echo "Deploying AI pipeline infrastructure"
+
+  # Project Milestones
+  milestone:mvp:
+    desc: Minimum Viable Product - Basic CMS-powered website
+    metadata:
+      timeframe: Short-term (Total ~20-25 hours of AI agent work)
+      key_dependencies:
+        - architecture:improve-component-structure
+        - architecture:refine-layout-strategy
+        - architecture:enhance-content-collections
+        - cms:setup-strapi
+        - cms:model-content
+        - cms:integrate-with-astro
+        - deploy:frontend
+        - deploy:cms
+      total_token_estimate: 40K-80K tokens
+    cmds:
+      - echo "MVP milestone completed"
+
+  milestone:ai-integration:
+    desc: AI Pipeline Integration Complete
+    metadata:
+      timeframe: Long-term (Total ~20-25 additional hours of AI agent work)
+      key_dependencies:
+        - ai:setup-pipeline
+        - ai:connect-cms
+        - ai:implement-crossposting
+        - ai:setup-analytics
+        - deploy:ai-pipeline
+      total_token_estimate: 50K-100K tokens
+    cmds:
+      - echo "AI Integration milestone completed"
+
+  # AI Agent Resource Requirements Summary
+  summary:ai-resources:
+    desc: Summary of AI agent resources needed for the entire project
+    metadata:
+      ai_models:
+        - 'Primary: {{.AI_MODEL}} (for complex system design and implementation)'
+        - 'Secondary: gpt-3.5-turbo or similar for simpler tasks'
+      token_usage:
+        - 'Estimated total: 90K-180K tokens for full implementation'
+        - 'MVP phase: 40K-80K tokens'
+        - 'AI Integration phase: 50K-100K tokens'
+      time_requirements:
+        - 'Total estimated AI agent interaction time: ~50 hours'
+        - 'MVP completion: ~25 hours of AI agent work'
+        - 'Full implementation: ~50 hours of AI agent work'
+      implementation_approach:
+        - 'Divide tasks into logical chunks for AI agent processing'
+        - 'Use chain-of-thought prompting for complex design tasks'
+        - 'Generate code in incremental steps with review after each step'
+        - 'Combine AI code generation with human review and testing'
+    cmds:
+      - echo "AI Resource requirements summary"
+
+  # Default task (development setup)
+  default:
+    desc: Set up development environment with high-priority tasks
+    cmds:
+      - task: architecture:improve-component-structure
+      - task: cms:setup-{{.CMS_CHOICE}}
+      - npm run dev

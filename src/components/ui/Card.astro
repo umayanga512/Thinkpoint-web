@@ -1,0 +1,27 @@
+---
+interface Props {
+  variant?: 'default' | 'bordered' | 'elevated';
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  class?: string;
+  [x: string]: any;
+}
+
+const { variant = 'default', padding = 'md', class: className, ...rest } = Astro.props;
+
+const variants = {
+  default: 'bg-white',
+  bordered: 'bg-white border border-stroke',
+  elevated: 'bg-white shadow-card',
+};
+
+const paddings = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+};
+---
+
+<div {...rest} class:list={['rounded-lg', variants[variant], paddings[padding], className]}>
+  <slot />
+</div>

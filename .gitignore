@@ -1,0 +1,42 @@
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules/
+package-lock.json
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# Deployment (Legacy - Vercel removed)
+# .vercel
+
+# Cloudflare
+.dev.vars
+wrangler.toml.local
+.wrangler/
+
+# Astro
+.astro/
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+
+# Ignore tasks
+.taskstest-results/

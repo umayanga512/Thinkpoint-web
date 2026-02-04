@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/container.astro';
+
+export async function getStaticPaths() {
+  // For static build, pre-define the routes we want to support
+  // In production with dynamic CMS, these would be fetched from Strapi
+  return [
+    { params: { slug: 'about' } },
+    { params: { slug: 'contact' } },
+    { params: { slug: 'services' } },
+  ];
+}
+
+const { slug } = Astro.params;
+
+// Static page data for build-time - in production this would come from CMS
+const staticPages = {
+  about: {
+    title: 'About Us',
+    content: `<p>Learn more about Indonesian Bintang Rezki - your trusted partner in commodity trading and export.</p>
+    <p>With years of experience in the Indonesian market, we connect global buyers with premium Indonesian commodities.</p>`,
+  },
+  contact: {
+    title: 'Contact Us',
+    content: `<p>Get in touch with Indonesian Bintang Rezki for your commodity trading needs.</p>
+    <p>Email: info@indobintangrezki.com<br>
+    Phone: +62 21 1234 5678<br>
+    Address: Jakarta, Indonesia</p>`,
+  },
+  services: {
+    title: 'Our Services',
+    content: `<p>Comprehensive commodity trading and export services tailored to your needs.</p>
+    <ul>
+      <li>Commodity Sourcing</li>
+      <li>Quality Assurance</li>
+      <li>Export Documentation</li>
+      <li>Logistics Management</li>
+      <li>Market Intelligence</li>
+    </ul>`,
+  },
+};
+
+// Get page data from static content or return null for 404
+const pageData = staticPages[slug as keyof typeof staticPages] || null;
+
+// Default SEO metadata
+const seoMetadata = {
+  title: pageData?.title || 'Page Not Found',
+  description:
+    pageData?.content?.replace(/<[^>]*>/g, '').substring(0, 160) ||
+    'The requested page could not be found.',
+  ogType: 'website' as const,
+};
+
+// If no page data is found, respond with a 404
+if (!pageData) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  });
+}
+
+// Extract page content
+const { title, content = '' } = pageData;
+---
+
+<Layout {...seoMetadata}>
+  <Container>
+    <div class="mx-auto mt-14 max-w-4xl">
+      <h1 class="mt-1 text-4xl font-bold lg:text-5xl lg:leading-tight lg:tracking-tight">
+        {title}
+      </h1>
+
+      <div class="prose prose-lg mx-auto mt-6">
+        <!-- If your CMS provides HTML content, you can render it safely with set:html -->
+        <div set:html={content} />
+      </div>
+    </div>
+  </Container>
+</Layout>

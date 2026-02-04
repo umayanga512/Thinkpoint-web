@@ -1,0 +1,304 @@
+---
+// Loading States Component
+// Provides reusable loading indicators for various UI elements
+---
+
+<!-- Spinner Loading Component -->
+<div class="loading-spinner hidden" id="loading-spinner">
+  <div class="flex items-center justify-center">
+    <svg
+      class="h-8 w-8 animate-spin text-blue-500"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+      ></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      ></path>
+    </svg>
+    <span class="ml-2 text-gray-600">Loading...</span>
+  </div>
+</div>
+
+<!-- Button Loading State -->
+<div class="button-loading hidden" id="button-loading">
+  <svg
+    class="h-5 w-5 animate-spin text-white"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+    ></circle>
+    <path
+      class="opacity-75"
+      fill="currentColor"
+      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+    ></path>
+  </svg>
+</div>
+
+<!-- Skeleton Loading for Content -->
+<div class="skeleton-loading hidden" id="skeleton-loading">
+  <div class="animate-pulse">
+    <div class="grid items-center gap-5 md:grid-cols-2 md:gap-10">
+      <div class="h-48 w-full rounded-md bg-gray-300"></div>
+      <div>
+        <div class="mb-2 h-4 w-1/4 rounded bg-gray-300"></div>
+        <div class="mb-4 h-8 w-3/4 rounded bg-gray-300"></div>
+        <div class="h-4 w-1/2 rounded bg-gray-300"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dots Loading Animation -->
+<div class="dots-loading hidden" id="dots-loading">
+  <div class="flex items-center justify-center space-x-1">
+    <div class="h-2 w-2 animate-bounce rounded-full bg-blue-500 [animation-delay:-0.3s]"></div>
+    <div class="h-2 w-2 animate-bounce rounded-full bg-blue-500 [animation-delay:-0.15s]"></div>
+    <div class="h-2 w-2 animate-bounce rounded-full bg-blue-500"></div>
+  </div>
+</div>
+
+<!-- Progress Bar -->
+<div class="progress-loading hidden" id="progress-loading">
+  <div class="h-2 w-full rounded-full bg-gray-200">
+    <div
+      class="h-2 rounded-full bg-blue-500 transition-all duration-300 ease-out"
+      style="width: 0%"
+      id="progress-bar">
+    </div>
+  </div>
+  <div class="mt-2 text-center text-sm text-gray-600" id="progress-text">Loading...</div>
+</div>
+
+<script>
+  // Loading States Manager
+  class LoadingStates {
+    constructor() {
+      this.loadingElements = {
+        spinner: document.getElementById('loading-spinner'),
+        button: document.getElementById('button-loading'),
+        skeleton: document.getElementById('skeleton-loading'),
+        dots: document.getElementById('dots-loading'),
+        progress: document.getElementById('progress-loading'),
+        progressBar: document.getElementById('progress-bar'),
+        progressText: document.getElementById('progress-text'),
+      };
+    }
+
+    // Show spinner loading
+    showSpinner(container = null) {
+      if (container) {
+        const spinner = this.loadingElements.spinner.cloneNode(true);
+        spinner.classList.remove('hidden');
+        spinner.id = 'temp-spinner';
+        container.appendChild(spinner);
+        return spinner;
+      } else {
+        this.loadingElements.spinner?.classList.remove('hidden');
+        return this.loadingElements.spinner;
+      }
+    }
+
+    // Hide spinner loading
+    hideSpinner(spinner = null) {
+      if (spinner) {
+        spinner.remove();
+      } else {
+        this.loadingElements.spinner?.classList.add('hidden');
+      }
+    }
+
+    // Show button loading state
+    showButtonLoading(button) {
+      if (!button) return null;
+
+      const originalContent = button.innerHTML;
+      const loadingSpinner = this.loadingElements.button.cloneNode(true);
+      loadingSpinner.classList.remove('hidden');
+
+      button.innerHTML = '';
+      button.appendChild(loadingSpinner);
+      button.disabled = true;
+      button.classList.add('opacity-75', 'cursor-not-allowed');
+
+      return originalContent;
+    }
+
+    // Hide button loading state
+    hideButtonLoading(button, originalContent) {
+      if (!button || !originalContent) return;
+
+      button.innerHTML = originalContent;
+      button.disabled = false;
+      button.classList.remove('opacity-75', 'cursor-not-allowed');
+    }
+
+    // Show skeleton loading
+    showSkeleton(container) {
+      if (!container) return;
+
+      const skeleton = this.loadingElements.skeleton.cloneNode(true);
+      skeleton.classList.remove('hidden');
+      skeleton.id = 'temp-skeleton';
+      container.appendChild(skeleton);
+      return skeleton;
+    }
+
+    // Hide skeleton loading
+    hideSkeleton(skeleton) {
+      if (skeleton) {
+        skeleton.remove();
+      }
+    }
+
+    // Show dots loading
+    showDots(container = null) {
+      if (container) {
+        const dots = this.loadingElements.dots.cloneNode(true);
+        dots.classList.remove('hidden');
+        dots.id = 'temp-dots';
+        container.appendChild(dots);
+        return dots;
+      } else {
+        this.loadingElements.dots?.classList.remove('hidden');
+        return this.loadingElements.dots;
+      }
+    }
+
+    // Hide dots loading
+    hideDots(dots = null) {
+      if (dots) {
+        dots.remove();
+      } else {
+        this.loadingElements.dots?.classList.add('hidden');
+      }
+    }
+
+    // Show progress loading
+    showProgress(text = 'Loading...') {
+      this.loadingElements.progress?.classList.remove('hidden');
+      if (this.loadingElements.progressText) {
+        this.loadingElements.progressText.textContent = text;
+      }
+      this.updateProgress(0);
+    }
+
+    // Update progress
+    updateProgress(percentage, text = null) {
+      if (this.loadingElements.progressBar) {
+        this.loadingElements.progressBar.style.width = `${percentage}%`;
+      }
+      if (text && this.loadingElements.progressText) {
+        this.loadingElements.progressText.textContent = text;
+      }
+    }
+
+    // Hide progress loading
+    hideProgress() {
+      this.loadingElements.progress?.classList.add('hidden');
+    }
+
+    // Simulate loading with progress
+    simulateProgress(duration = 3000, callback = null) {
+      let progress = 0;
+      const interval = 50;
+      const increment = (100 / duration) * interval;
+
+      this.showProgress();
+
+      const timer = setInterval(() => {
+        progress += increment;
+        if (progress >= 100) {
+          progress = 100;
+          this.updateProgress(progress, 'Complete!');
+          clearInterval(timer);
+          setTimeout(() => {
+            this.hideProgress();
+            if (callback) callback();
+          }, 500);
+        } else {
+          this.updateProgress(progress);
+        }
+      }, interval);
+
+      return timer;
+    }
+  }
+
+  // Global loading states instance
+  window.LoadingStates = new LoadingStates();
+
+  // Utility functions for easy access
+  window.showLoading = (type = 'spinner', container = null) => {
+    switch (type) {
+      case 'spinner':
+        return window.LoadingStates.showSpinner(container);
+      case 'dots':
+        return window.LoadingStates.showDots(container);
+      case 'skeleton':
+        return window.LoadingStates.showSkeleton(container);
+      case 'progress':
+        return window.LoadingStates.showProgress();
+      default:
+        return window.LoadingStates.showSpinner(container);
+    }
+  };
+
+  window.hideLoading = (type = 'spinner', element = null) => {
+    switch (type) {
+      case 'spinner':
+        window.LoadingStates.hideSpinner(element);
+        break;
+      case 'dots':
+        window.LoadingStates.hideDots(element);
+        break;
+      case 'skeleton':
+        window.LoadingStates.hideSkeleton(element);
+        break;
+      case 'progress':
+        window.LoadingStates.hideProgress();
+        break;
+    }
+  };
+</script>
+
+<style>
+  /* Custom loading animations */
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Smooth transitions for loading states */
+  .loading-transition {
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+</style>

@@ -1,0 +1,362 @@
+---
+import Button from './ui/button.astro';
+import { Icon } from 'astro-icon/components';
+
+// Get API key from environment variables with fallback
+const WEB3FORMS_ACCESS_KEY =
+  import.meta.env.WEB3FORMS_ACCESS_KEY || '4bb064a5-1b97-4dc3-aaec-f4820cbfedfe';
+---
+
+<form
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  id="form"
+  class="needs-validation"
+  novalidate>
+  <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+  <input type="checkbox" class="hidden" style="display:none" name="botcheck" />
+
+  <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 md:gap-6">
+    <!-- Name Field -->
+    <div class="mb-2">
+      <label for="name" class="mb-1 block text-sm font-medium text-gray-700">Full Name</label>
+      <div class="relative">
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <Icon name="carbon:user" class="h-4 w-4 text-gray-400 sm:h-5 sm:w-5" />
+        </div>
+        <input
+          type="text"
+          id="name"
+          placeholder="John Doe"
+          required
+          class="w-full rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-none ring-[#DFF5E9]/50 placeholder:text-gray-400 focus:border-[#DFF5E9] focus:ring-2 sm:py-3 sm:text-base"
+          name="name"
+        />
+      </div>
+      <div class="empty-feedback invalid-feedback mt-1 text-xs text-red-400 sm:text-sm">
+        Please provide your full name.
+      </div>
+    </div>
+
+    <!-- Email Field -->
+    <div class="mb-2">
+      <label for="email_address" class="mb-1 block text-sm font-medium text-gray-700"
+        >Email Address</label
+      >
+      <div class="relative">
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <Icon name="carbon:email" class="h-4 w-4 text-gray-400 sm:h-5 sm:w-5" />
+        </div>
+        <input
+          id="email_address"
+          type="email"
+          placeholder="you@company.com"
+          name="email"
+          required
+          class="w-full rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-none ring-[#DFF5E9]/50 placeholder:text-gray-400 focus:border-[#DFF5E9] focus:ring-2 sm:py-3 sm:text-base"
+        />
+      </div>
+      <div class="empty-feedback mt-1 text-xs text-red-400 sm:text-sm">
+        Please provide your email address.
+      </div>
+      <div class="invalid-feedback mt-1 text-xs text-red-400 sm:text-sm">
+        Please provide a valid email address.
+      </div>
+    </div>
+  </div>
+
+  <!-- Phone Field -->
+  <div class="mb-2 mt-4">
+    <label for="phone" class="mb-1 block text-sm font-medium text-gray-700">Phone Number</label>
+    <div class="relative">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <Icon name="carbon:phone" class="h-4 w-4 text-gray-400 sm:h-5 sm:w-5" />
+      </div>
+      <input
+        id="phone"
+        type="tel"
+        placeholder="+1 (555) 000-0000"
+        name="phone"
+        class="w-full rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-none ring-[#DFF5E9]/50 placeholder:text-gray-400 focus:border-[#DFF5E9] focus:ring-2 sm:py-3 sm:text-base"
+      />
+    </div>
+  </div>
+
+  <!-- Subject Field -->
+  <div class="mb-2 mt-4">
+    <label for="subject" class="mb-1 block text-sm font-medium text-gray-700">Subject</label>
+    <div class="relative">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <Icon name="carbon:chat" class="h-4 w-4 text-gray-400 sm:h-5 sm:w-5" />
+      </div>
+      <input
+        id="subject"
+        type="text"
+        placeholder="Your subject"
+        name="subject"
+        required
+        class="w-full rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-none ring-[#DFF5E9]/50 placeholder:text-gray-400 focus:border-[#DFF5E9] focus:ring-2 sm:py-3 sm:text-base"
+      />
+    </div>
+    <div class="empty-feedback invalid-feedback mt-1 text-xs text-red-400 sm:text-sm">
+      Please provide a subject.
+    </div>
+  </div>
+
+  <!-- Message Field -->
+  <div class="mb-2 mt-4">
+    <label for="message" class="mb-1 block text-sm font-medium text-gray-700">Message</label>
+    <div class="relative">
+      <div class="pointer-events-none absolute left-3 top-3 flex items-center">
+        <Icon name="carbon:text-align-left" class="h-4 w-4 text-gray-400 sm:h-5 sm:w-5" />
+      </div>
+      <textarea
+        id="message"
+        placeholder="Your message"
+        name="message"
+        required
+        class="min-h-[100px] w-full rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-none ring-[#DFF5E9]/50 placeholder:text-gray-400 focus:border-[#DFF5E9] focus:ring-2 sm:py-3 sm:text-base"
+      ></textarea>
+    </div>
+    <div class="empty-feedback invalid-feedback mt-1 text-xs text-red-400 sm:text-sm">
+      Please enter your message.
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="mt-6">
+    <button
+      type="submit"
+      id="submit-button"
+      class="relative w-full rounded-md bg-[#DFF5E9] px-6 py-3 font-medium text-gray-800 transition-colors hover:bg-[#c5e6d3] focus:outline-none focus:ring-2 focus:ring-[#DFF5E9] focus:ring-offset-2 sm:w-auto">
+      <span id="button-text">Send Message</span>
+      <span id="button-loading" class="hidden">
+        <svg
+          class="inline h-5 w-5 animate-spin text-gray-800"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        Sending...
+      </span>
+    </button>
+  </div>
+
+  <!-- Result Messages -->
+  <div id="result" class="mt-3 text-center"></div>
+
+  <!-- Success Message -->
+  <div id="success-message" class="mt-4 hidden rounded-md border border-green-200 bg-green-50 p-4">
+    <div class="flex items-center">
+      <svg
+        class="mr-2 h-5 w-5 text-green-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+      <span class="font-medium text-green-700">Message sent successfully!</span>
+    </div>
+    <p class="mt-1 text-sm text-green-600">We'll get back to you within 24 hours.</p>
+  </div>
+
+  <!-- Error Message -->
+  <div id="error-message" class="mt-4 hidden rounded-md border border-red-200 bg-red-50 p-4">
+    <div class="flex items-center">
+      <svg class="mr-2 h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <span class="font-medium text-red-700">Failed to send message</span>
+    </div>
+    <p class="mt-1 text-sm text-red-600" id="error-details">
+      Please try again or contact us directly.
+    </p>
+  </div>
+</form>
+
+<style>
+  .invalid-feedback,
+  .empty-feedback {
+    display: none;
+  }
+
+  .was-validated :placeholder-shown:invalid ~ .empty-feedback {
+    display: block;
+  }
+
+  .was-validated :not(:placeholder-shown):invalid ~ .invalid-feedback {
+    display: block;
+  }
+
+  .is-invalid,
+  .was-validated :invalid {
+    border-color: #dc3545;
+  }
+</style>
+
+<script is:inline>
+  const form = document.getElementById('form');
+  const result = document.getElementById('result');
+  const submitButton = document.getElementById('submit-button');
+  const buttonText = document.getElementById('button-text');
+  const buttonLoading = document.getElementById('button-loading');
+  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementById('error-message');
+  const errorDetails = document.getElementById('error-details');
+
+  // Enhanced form validation with visual feedback
+  function validateForm() {
+    const inputs = form.querySelectorAll('input[required], textarea[required]');
+    let isValid = true;
+
+    inputs.forEach((input) => {
+      if (!input.value.trim()) {
+        input.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    });
+
+    return isValid;
+  }
+
+  // Show loading state
+  function showLoading() {
+    buttonText.classList.add('hidden');
+    buttonLoading.classList.remove('hidden');
+    submitButton.disabled = true;
+    submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+
+    // Hide previous messages
+    successMessage.classList.add('hidden');
+    errorMessage.classList.add('hidden');
+    result.innerHTML = '';
+  }
+
+  // Hide loading state
+  function hideLoading() {
+    buttonText.classList.remove('hidden');
+    buttonLoading.classList.add('hidden');
+    submitButton.disabled = false;
+    submitButton.classList.remove('opacity-75', 'cursor-not-allowed');
+  }
+
+  // Show success message
+  function showSuccess(message) {
+    hideLoading();
+    successMessage.classList.remove('hidden');
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      successMessage.classList.add('hidden');
+    }, 5000);
+  }
+
+  // Show error message
+  function showError(message) {
+    hideLoading();
+    errorMessage.classList.remove('hidden');
+    errorDetails.textContent = message || 'Please try again or contact us directly.';
+
+    // Auto-hide after 8 seconds
+    setTimeout(() => {
+      errorMessage.classList.add('hidden');
+    }, 8000);
+  }
+
+  // Real-time validation
+  form.querySelectorAll('input, textarea').forEach((input) => {
+    input.addEventListener('blur', function () {
+      if (this.hasAttribute('required') && !this.value.trim()) {
+        this.classList.add('is-invalid');
+      } else {
+        this.classList.remove('is-invalid');
+      }
+    });
+
+    input.addEventListener('input', function () {
+      if (this.classList.contains('is-invalid') && this.value.trim()) {
+        this.classList.remove('is-invalid');
+      }
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Enhanced validation
+    form.classList.add('was-validated');
+    if (!form.checkValidity() || !validateForm()) {
+      const firstInvalid = form.querySelector(':invalid, .is-invalid');
+      if (firstInvalid) {
+        firstInvalid.focus();
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    // Show loading state
+    showLoading();
+
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: json,
+    })
+      .then(async (response) => {
+        const responseData = await response.json();
+
+        if (response.status === 200) {
+          showSuccess(responseData.message);
+
+          // Reset form after successful submission
+          setTimeout(() => {
+            form.reset();
+            form.classList.remove('was-validated');
+          }, 1000);
+        } else {
+          console.error('Form submission error:', response.status, responseData);
+          showError(responseData.message || `Server error (${response.status}). Please try again.`);
+        }
+      })
+      .catch((error) => {
+        console.error('Network error:', error);
+        showError('Network error. Please check your connection and try again.');
+      });
+  });
+
+  // Prevent multiple submissions
+  let isSubmitting = false;
+  form.addEventListener('submit', function (e) {
+    if (isSubmitting) {
+      e.preventDefault();
+      return false;
+    }
+    isSubmitting = true;
+
+    // Reset flag after submission completes
+    setTimeout(() => {
+      isSubmitting = false;
+    }, 3000);
+  });
+</script>

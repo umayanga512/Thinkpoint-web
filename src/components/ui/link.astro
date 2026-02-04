@@ -1,0 +1,89 @@
+---
+interface Props {
+  href: string;
+  type?: 'button' | 'nav' | 'external';
+  size?: 'md' | 'lg';
+  block?: boolean;
+  style?: 'outline' | 'primary' | 'inverted' | 'muted';
+  enhanceWithJs?: boolean;
+  trackingData?: Record<string, any>;
+  class?: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  rel?: string;
+  'aria-label'?: string;
+  title?: string;
+  [x: string]: any;
+}
+
+const {
+  href,
+  type = 'nav',
+  block,
+  size = 'lg',
+  style = 'primary',
+  enhanceWithJs = false,
+  trackingData,
+  class: className,
+  target,
+  rel,
+  'aria-label': ariaLabel,
+  title,
+  ...rest
+} = Astro.props;
+
+const sizes = {
+  lg: 'px-5 py-2.5',
+  md: 'px-4 py-2',
+};
+
+const styles = {
+  outline: 'bg-white border-2 border-black hover:bg-gray-100 text-black ',
+  primary: 'bg-black text-white hover:bg-gray-800  border-2 border-transparent',
+  inverted: 'bg-white text-black   border-2 border-transparent',
+  muted: 'bg-gray-100 hover:bg-gray-200   border-2 border-transparent',
+};
+
+// Apply button styling only if type is "button"
+const isButtonStyle = type === 'button';
+
+const linkAttributes = {
+  href,
+  class: className,
+  target,
+  rel: target === '_blank' ? rel || 'noopener noreferrer' : rel,
+  'aria-label': ariaLabel,
+  title,
+  'data-enhance': enhanceWithJs,
+  'data-tracking': trackingData ? JSON.stringify(trackingData) : undefined,
+  ...rest,
+};
+
+const cleanAttributes = Object.fromEntries(
+  Object.entries(linkAttributes).filter(([_, value]) => value !== undefined)
+);
+---
+
+<a
+  {...cleanAttributes}
+  class:list={[
+    isButtonStyle &&
+      'rounded text-center ring-gray-200 ring-offset-2 transition focus-visible:ring-2',
+    isButtonStyle && block && 'w-full',
+    isButtonStyle && sizes[size],
+    isButtonStyle && styles[style],
+    !isButtonStyle && 'text-decoration-inherit color-inherit',
+    className,
+  ]}
+  ><slot />
+</a>
+
+<style>
+  a[data-type='nav'] {
+    text-decoration: inherit;
+    color: inherit;
+  }
+
+  a[data-enhance='true'] {
+    position: relative;
+  }
+</style>

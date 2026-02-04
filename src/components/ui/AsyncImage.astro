@@ -1,0 +1,169 @@
+---
+// Responsive Async Image Component
+// Mobile-first optimized with progressive loading and skeleton screens
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+  format?: string[];
+  quality?: number;
+  placeholder?: string;
+  class?: string;
+  aspectRatio?: string;
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchPriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading = 'lazy',
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+  format = ['webp', 'avif', 'jpg'],
+  quality = 75,
+  placeholder = 'blur',
+  class: className = '',
+  aspectRatio,
+  objectFit = 'cover',
+  decoding = 'async',
+  fetchPriority = 'auto',
+} = Astro.props;
+
+// Generate placeholder image data URL
+const generatePlaceholder = (width: number, height: number, placeholder: string = 'blur') => {
+  if (placeholder === 'blur') {
+    return `data:image/svg+xml,%3Csvg width='${width}' height='${height}' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='b'%3E%3CfeGaussianBlur in='SourceGraphic' stdDeviation='3'/%3E%3C/feGaussianBlur%3E%3Crect width='${width}' height='${height}' fill='%23e0e0e0'/%3E%3C/svg%3E`;
+  }
+  return '';
+};
+
+// Generate responsive image srcset for different widths
+const generateSrcSet = (baseSrc: string, widths: number[]) => {
+  return widths.map((width) => `${baseSrc}?w=${width}&q=${quality} ${width}w`).join(', ');
+};
+
+// Calculate aspect ratio
+const calculateAspectRatio = (w: number, h: number) => {
+  return `${w}/${h}`;
+};
+
+const calculatedAspectRatio = aspectRatio || calculateAspectRatio(width || 800, height || 600);
+const placeholderSrc = generatePlaceholder(width || 800, height || 600, placeholder);
+
+// Generate responsive image srcset
+const srcSet = generateSrcSet(src, [400, 800, 1200, 1600]);
+
+const style = aspectRatio ? `aspect-ratio: ${calculatedAspectRatio};` : '';
+const imageStyle = objectFit ? `object-fit: ${objectFit};` : '';
+const combinedStyle = `${style} ${imageStyle}`.trim();
+---
+
+<div class={`relative overflow-hidden ${className}`} style={combinedStyle}>
+  <!-- Placeholder for LCP optimization -->
+  {
+    placeholder && (
+      <div
+        class="placeholder absolute inset-0 bg-gray-200"
+        style={`background-image: url('${placeholderSrc}'); background-size: cover; background-position: center;`}
+      />
+    )
+  }
+
+  <!-- Async Image -->
+  <picture>
+    {
+      format.includes('avif') && (
+        <source
+          type="image/avif"
+          srcset={generateSrcSet(src, [400, 800, 1200, 1600])}
+          sizes={sizes}
+        />
+      )
+    }
+    {
+      format.includes('webp') && (
+        <source
+          type="image/webp"
+          srcset={generateSrcSet(src, [400, 800, 1200, 1600])}
+          sizes={sizes}
+        />
+      )
+    }
+    <img
+      src={src}
+      srcset={srcSet}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      sizes={sizes}
+      decoding={decoding}
+      fetchpriority={fetchPriority}
+      class={`transition-opacity duration-300 ${placeholder ? 'opacity-0' : 'opacity-100'}`}
+      style={`transition: opacity 0.3s ease-in-out;`}
+      onload="this.style.opacity = '1'; this.parentElement?.querySelector('.placeholder')?.remove();"
+      onerror="this.style.opacity = '1'; this.parentElement?.querySelector('.placeholder')?.remove();"
+    />
+  </picture>
+
+  <!-- Loading indicator -->
+  {
+    loading === 'lazy' && (
+      <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-gray-100 opacity-75">
+        <div class="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-transparent" />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  /* Optimize for Core Web Vitals */
+  img {
+    /* Prevent layout shift */
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Smooth loading */
+  .transition-opacity {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 640px) {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  /* Skeleton loading animation */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Blur placeholder effect */
+  .bg-gray-200 {
+    background-color: #e5e7eb;
+    background-image:
+      linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
+      linear-gradient(-45deg, transparent 25%, #e5e7eb 25%, transparent 25%);
+    background-size: 20px 20px;
+    background-position:
+      0 0,
+      10px 10px;
+  }
+</style>

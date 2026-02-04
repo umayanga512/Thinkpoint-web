@@ -1,0 +1,79 @@
+---
+// Skeleton loading component for progressive image loading
+interface Props {
+  width?: string;
+  height?: string;
+  class?: string;
+  variant?: 'image' | 'text' | 'card' | 'avatar';
+  animate?: boolean;
+}
+
+const {
+  width = 'w-full',
+  height = 'h-48',
+  class: className = '',
+  variant = 'image',
+  animate = true,
+} = Astro.props;
+
+// Generate skeleton styles based on variant
+const getSkeletonStyles = () => {
+  switch (variant) {
+    case 'image':
+      return 'bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%] animate-shimmer';
+    case 'text':
+      return 'h-4 bg-gray-200 rounded animate-pulse';
+    case 'card':
+      return 'bg-gray-200 rounded-lg animate-pulse';
+    case 'avatar':
+      return 'w-10 h-10 bg-gray-200 rounded-full animate-pulse';
+    default:
+      return 'bg-gray-200 rounded animate-pulse';
+  }
+};
+
+const skeletonStyles = getSkeletonStyles();
+const baseClasses = `${width} ${height} ${skeletonStyles} ${className}`.trim();
+---
+
+<div class={baseClasses} style={animate ? '' : 'animation: none;'}></div>
+
+<style>
+  /* Shimmer animation for images */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: calc(200% + 100%) 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+    background-size: 200% 100%;
+  }
+
+  /* Pulse animation for other elements */
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Mobile optimization */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-shimmer,
+    .animate-pulse {
+      animation: none;
+    }
+  }
+</style>

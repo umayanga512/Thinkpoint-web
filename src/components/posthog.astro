@@ -1,0 +1,544 @@
+---
+// PostHog Analytics Component with API Key
+// Privacy-first user behavior tracking for Indo Bintang Rezki
+---
+
+<script is:inline>
+  !(function (t, e) {
+    var o, n, p, r;
+    e.__SV ||
+      (window.posthog && window.posthog.__loaded) ||
+      ((window.posthog = e),
+      (e._i = []),
+      (e.init = function (i, s, a) {
+        function g(t, e) {
+          var o = e.split('.');
+          (2 == o.length && ((t = t[o[0]]), (e = o[1])),
+            (t[e] = function () {
+              t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+            }));
+        }
+        (((p = t.createElement('script')).type = 'text/javascript'),
+          (p.crossOrigin = 'anonymous'),
+          (p.async = !0),
+          (p.src =
+            s.api_host.replace('.i.posthog.com', '-assets.i.posthog.com') + '/static/array.js'),
+          (r = t.getElementsByTagName('script')[0]).parentNode.insertBefore(p, r));
+        var u = e;
+        for (
+          void 0 !== a ? (u = e[a] = []) : (a = 'posthog'),
+            u.people = u.people || [],
+            u.toString = function (t) {
+              var e = 'posthog';
+              return ('posthog' !== a && (e += '.' + a), t || (e += ' (stub)'), e);
+            },
+            u.people.toString = function () {
+              return u.toString(1) + '.people (stub)';
+            },
+            o =
+              'init Me Ls Ns Ce As js capture Xe calculateEventProperties Bs register register_once register_for_session unregister unregister_for_session Gs getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Hs zs createPersonProfile Ws Os Vs opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Us debug L qs getPageViewId captureTraceFeedback captureTraceMetric'.split(
+                ' '
+              ),
+            n = 0;
+          n < o.length;
+          n++
+        )
+          g(u, o[n]);
+        e._i.push([i, s, a]);
+      }),
+      (e.__SV = 1));
+  })(document, window.posthog || []);
+  posthog.init('phc_avzcFe1jcQ5pyqhOd7tDlcCHcXVVo27Mcx5whc813jY', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2025-05-24',
+    person_profiles: 'identified_only',
+    capture_pageview: true,
+    capture_pageleave: true,
+    autocapture: true,
+    debug: false,
+  });
+
+  // Enhanced Event Tracking for Indo Bintang Rezki
+  document.addEventListener('DOMContentLoaded', function () {
+    // Track page load performance
+    window.addEventListener('load', function () {
+      if (window.performance && window.performance.timing) {
+        const loadTime =
+          window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+        posthog.capture('page_load_completed', {
+          load_time_ms: loadTime,
+          page_type: document.body.dataset.pageType || 'unknown',
+          is_mobile: window.innerWidth <= 768,
+        });
+      }
+    });
+
+    // Track scroll depth with more granular intervals
+    let maxScroll = 0;
+    let scrollMilestones = [10, 25, 50, 75, 90];
+
+    window.addEventListener('scroll', function () {
+      const scrollPercent = Math.round(
+        (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+      );
+
+      scrollMilestones.forEach((milestone) => {
+        if (scrollPercent >= milestone && maxScroll < milestone) {
+          posthog.capture('scroll_depth_milestone', {
+            percentage: milestone,
+            page_url: window.location.href,
+            page_title: document.title,
+            timestamp: new Date().toISOString(),
+          });
+          maxScroll = milestone;
+        }
+      });
+    });
+
+    // Track link clicks with enhanced categorization
+    document.addEventListener('click', function (e) {
+      const link = e.target.closest('a');
+      if (link) {
+        const href = link.getAttribute('href');
+        const text = link.textContent?.trim();
+        const isExternal =
+          href && href.startsWith('http') && !href.includes(window.location.hostname);
+        const isPhone = href && href.startsWith('tel:');
+        const isEmail = href && href.startsWith('mailto:');
+
+        let linkCategory = 'internal';
+        if (isExternal) linkCategory = 'external';
+        else if (isPhone) linkCategory = 'phone';
+        else if (isEmail) linkCategory = 'email';
+
+        posthog.capture('link_clicked', {
+          link_text: text || '[no-text]',
+          link_url: href || '[no-href]',
+          link_category: linkCategory,
+          page_url: window.location.href,
+          page_section: link.closest('section')?.id || 'unknown',
+        });
+      }
+    });
+
+    // Track button interactions
+    document.addEventListener('click', function (e) {
+      const button = e.target.closest('button');
+      if (button) {
+        const buttonText =
+          button.textContent?.trim() || button.getAttribute('aria-label') || '[no-text]';
+        const buttonType = button.getAttribute('type') || 'button';
+        const isSubmit = buttonType === 'submit';
+
+        posthog.capture('button_clicked', {
+          button_text: buttonText,
+          button_type: buttonType,
+          is_form_submit: isSubmit,
+          page_url: window.location.href,
+          page_section: button.closest('section')?.id || 'unknown',
+        });
+      }
+    });
+
+    // Track form interactions
+    document.addEventListener('submit', function (e) {
+      const form = e.target;
+      if (form.tagName === 'FORM') {
+        const formId = form.id || 'unknown';
+        const formAction = form.action || 'current-page';
+        const isContactForm = form.classList.contains('contact-form') || formId.includes('contact');
+
+        posthog.capture('form_submitted', {
+          form_id: formId,
+          form_action: formAction,
+          form_type: isContactForm ? 'contact' : 'other',
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track form field focus
+    document.addEventListener(
+      'focus',
+      function (e) {
+        const field = e.target;
+        if (
+          field.tagName === 'INPUT' ||
+          field.tagName === 'TEXTAREA' ||
+          field.tagName === 'SELECT'
+        ) {
+          const fieldName =
+            field.name || field.id || field.getAttribute('placeholder') || 'unknown';
+          const fieldType = field.type || field.tagName.toLowerCase();
+
+          posthog.capture('form_field_focused', {
+            field_name: fieldName,
+            field_type: fieldType,
+            form_id: field.closest('form')?.id || 'standalone',
+            page_url: window.location.href,
+          });
+        }
+      },
+      true
+    );
+
+    // Track navigation menu interactions
+    document.addEventListener('click', function (e) {
+      const navItem = e.target.closest('nav a, .navbar a, .navigation a');
+      if (navItem) {
+        const navText = navItem.textContent?.trim() || '[no-text]';
+        const navHref = navItem.getAttribute('href') || '[no-href]';
+
+        posthog.capture('navigation_clicked', {
+          nav_item: navText,
+          nav_destination: navHref,
+          is_external: navHref.startsWith('http') && !navHref.includes(window.location.hostname),
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track social media links
+    document.addEventListener('click', function (e) {
+      const socialLink = e.target.closest(
+        'a[href*="facebook"], a[href*="twitter"], a[href*="instagram"], a[href*="linkedin"]'
+      );
+      if (socialLink) {
+        const platform = socialLink.href.includes('facebook')
+          ? 'facebook'
+          : socialLink.href.includes('twitter')
+            ? 'twitter'
+            : socialLink.href.includes('instagram')
+              ? 'instagram'
+              : socialLink.href.includes('linkedin')
+                ? 'linkedin'
+                : 'unknown';
+
+        posthog.capture('social_link_clicked', {
+          platform: platform,
+          link_url: socialLink.href,
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track blog article interactions
+    document.addEventListener('click', function (e) {
+      const blogLink = e.target.closest('a[href*="/blog/"], .blog-post a, .article a');
+      if (blogLink) {
+        const articleTitle =
+          blogLink.getAttribute('data-title') ||
+          blogLink
+            .closest('.blog-post, .article')
+            ?.querySelector('h1, h2, h3')
+            ?.textContent?.trim() ||
+          'unknown';
+
+        posthog.capture('blog_article_clicked', {
+          article_title: articleTitle,
+          article_url: blogLink.href,
+          page_url: window.location.href,
+          is_blog_index: window.location.pathname === '/blog',
+        });
+      }
+    });
+
+    // Track search functionality
+    document.addEventListener('input', function (e) {
+      const searchInput = e.target.closest('input[type="search"], .search input, #search');
+      if (searchInput) {
+        clearTimeout(window.searchTimeout);
+        window.searchTimeout = setTimeout(() => {
+          const searchTerm = searchInput.value.trim();
+          if (searchTerm.length >= 2) {
+            posthog.capture('search_performed', {
+              search_term: searchTerm,
+              search_type: 'blog', // Adjust based on your search implementation
+              page_url: window.location.href,
+            });
+          }
+        }, 1000);
+      }
+    });
+
+    // Track file downloads
+    document.addEventListener('click', function (e) {
+      const downloadLink = e.target.closest(
+        'a[download], a[href*=".pdf"], a[href*=".doc"], a[href*=".xls"], a[href*=".zip"]'
+      );
+      if (downloadLink) {
+        const href = downloadLink.getAttribute('href');
+        const filename = href?.split('/').pop() || 'unknown';
+        const fileExtension = filename.split('.').pop()?.toLowerCase() || 'unknown';
+
+        posthog.capture('file_downloaded', {
+          filename: filename,
+          file_type: fileExtension,
+          download_url: href,
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track video interactions (if any videos are added)
+    document.addEventListener(
+      'play pause ended',
+      function (e) {
+        const video = e.target;
+        if (video.tagName === 'VIDEO') {
+          const action = e.type;
+          const videoTitle = video.title || video.getAttribute('data-title') || 'unknown';
+
+          posthog.capture('video_interaction', {
+            action: action,
+            video_title: videoTitle,
+            video_duration: video.duration || 0,
+            current_time: video.currentTime || 0,
+            page_url: window.location.href,
+          });
+        }
+      },
+      true
+    );
+
+    // Track error events
+    window.addEventListener('error', function (e) {
+      posthog.capture('javascript_error', {
+        error_message: e.message,
+        error_filename: e.filename,
+        error_line: e.lineno,
+        error_column: e.colno,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+      });
+    });
+
+    // Track user engagement time
+    let startTime = Date.now();
+    let isActive = true;
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        isActive = false;
+        const engagementTime = Math.round((Date.now() - startTime) / 1000);
+        posthog.capture('engagement_session_paused', {
+          engagement_time_seconds: engagementTime,
+          page_url: window.location.href,
+        });
+      } else {
+        isActive = true;
+        startTime = Date.now();
+        posthog.capture('engagement_session_resumed', {
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track session end (when user leaves)
+    window.addEventListener('beforeunload', function () {
+      if (isActive) {
+        const engagementTime = Math.round((Date.now() - startTime) / 1000);
+        posthog.capture('page_engagement_completed', {
+          total_engagement_seconds: engagementTime,
+          page_url: window.location.href,
+          page_title: document.title,
+        });
+      }
+    });
+
+    // Track CTA (Call to Action) button clicks
+    document.addEventListener('click', function (e) {
+      const ctaButton = e.target.closest('.cta, .call-to-action, .btn-primary, [data-cta]');
+      if (ctaButton) {
+        const ctaText = ctaButton.textContent?.trim() || '[no-text]';
+        const ctaAction = ctaButton.getAttribute('data-cta') || 'unknown';
+
+        posthog.capture('cta_clicked', {
+          cta_text: ctaText,
+          cta_action: ctaAction,
+          button_id: ctaButton.id || 'no-id',
+          page_url: window.location.href,
+          page_section: ctaButton.closest('section')?.id || 'unknown',
+        });
+      }
+    });
+
+    // Track contact method preferences
+    document.addEventListener('click', function (e) {
+      const contactMethod = e.target.closest('[data-contact-method]');
+      if (contactMethod) {
+        const method = contactMethod.getAttribute('data-contact-method');
+
+        posthog.capture('contact_method_selected', {
+          contact_method: method,
+          contact_details: contactMethod.textContent?.trim() || '[no-details]',
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track FAQ interactions
+    document.addEventListener('click', function (e) {
+      const faqItem = e.target.closest('.faq-item, .accordion-item, [data-faq]');
+      if (faqItem) {
+        const question =
+          faqItem.querySelector('h3, h4, .question')?.textContent?.trim() || 'unknown';
+        const isExpanded =
+          faqItem.classList.contains('expanded') ||
+          faqItem.getAttribute('aria-expanded') === 'true';
+
+        posthog.capture('faq_interaction', {
+          question: question,
+          action: isExpanded ? 'collapsed' : 'expanded',
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track testimonial interactions
+    document.addEventListener('click', function (e) {
+      const testimonial = e.target.closest('.testimonial, .review');
+      if (testimonial) {
+        const author =
+          testimonial.querySelector('.author, .testimonial-author')?.textContent?.trim() ||
+          'unknown';
+
+        posthog.capture('testimonial_clicked', {
+          author: author,
+          testimonial_id: testimonial.id || 'no-id',
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track language or region preferences (if applicable)
+    document.addEventListener('click', function (e) {
+      const langSelector = e.target.closest('[data-lang], .language-selector, .region-selector');
+      if (langSelector) {
+        const selectedLang =
+          langSelector.getAttribute('data-lang') || langSelector.textContent?.trim() || 'unknown';
+
+        posthog.capture('language_preference_changed', {
+          selected_language: selectedLang,
+          previous_language: document.documentElement.lang || 'en',
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track newsletter signup attempts
+    document.addEventListener('submit', function (e) {
+      const newsletterForm = e.target.closest('.newsletter-form, [data-newsletter]');
+      if (newsletterForm) {
+        posthog.capture('newsletter_signup_attempted', {
+          form_id: newsletterForm.id || 'no-id',
+          page_url: window.location.href,
+          page_section: newsletterForm.closest('section')?.id || 'unknown',
+        });
+      }
+    });
+
+    // Track product/service inquiries
+    document.addEventListener('click', function (e) {
+      const inquiryLink = e.target.closest('[data-product], [data-service], .inquiry-link');
+      if (inquiryLink) {
+        const productName =
+          inquiryLink.getAttribute('data-product') ||
+          inquiryLink.getAttribute('data-service') ||
+          inquiryLink.textContent?.trim() ||
+          'unknown';
+
+        posthog.capture('product_inquiry_initiated', {
+          product_name: productName,
+          inquiry_type: 'click',
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track pricing page interactions
+    document.addEventListener('click', function (e) {
+      const pricingItem = e.target.closest('.pricing-plan, .price-card, [data-price]');
+      if (pricingItem) {
+        const planName =
+          pricingItem.getAttribute('data-plan') ||
+          pricingItem.querySelector('.plan-name, .title')?.textContent?.trim() ||
+          'unknown';
+        const price = pricingItem.getAttribute('data-price') || 'unknown';
+
+        posthog.capture('pricing_plan_selected', {
+          plan_name: planName,
+          price: price,
+          page_url: window.location.href,
+        });
+      }
+    });
+
+    // Track mobile-specific interactions
+    if ('ontouchstart' in window) {
+      document.addEventListener(
+        'touchstart',
+        function (e) {
+          const touchedElement = e.target;
+          const elementType = touchedElement.tagName.toLowerCase();
+          const hasClickListener = touchedElement.onclick !== null;
+
+          posthog.capture('mobile_touch_interaction', {
+            element_type: elementType,
+            has_click_handler: hasClickListener,
+            page_url: window.location.href,
+          });
+        },
+        { passive: true }
+      );
+    }
+
+    // Track performance metrics
+    if ('PerformanceObserver' in window) {
+      const observer = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+          if (entry.entryType === 'navigation') {
+            posthog.capture('navigation_timing', {
+              dom_content_loaded: entry.domContentLoadedEventEnd - entry.domContentLoadedEventStart,
+              load_complete: entry.loadEventEnd - entry.loadEventStart,
+              page_url: window.location.href,
+            });
+          }
+        });
+      });
+      observer.observe({ entryTypes: ['navigation'] });
+    }
+
+    // Make advanced tracking functions globally available
+    window.trackCustomEvent = function (eventName, properties = {}) {
+      posthog.capture(eventName, {
+        ...properties,
+        timestamp: new Date().toISOString(),
+        page_url: window.location.href,
+        page_title: document.title,
+        user_agent: navigator.userAgent,
+      });
+    };
+
+    window.trackUserJourney = function (step, details = {}) {
+      posthog.capture('user_journey_step', {
+        step_name: step,
+        step_details: details,
+        session_id: posthog.get_session_id(),
+        page_url: window.location.href,
+      });
+    };
+
+    // Initialize with a page view event (in addition to automatic tracking)
+    posthog.capture('page_view_enhanced', {
+      page_type: document.body.dataset.pageType || 'unknown',
+      viewport_width: window.innerWidth,
+      viewport_height: window.innerHeight,
+      is_mobile: window.innerWidth <= 768,
+      referrer: document.referrer,
+      utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+      utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+      utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+    });
+  });
+</script>

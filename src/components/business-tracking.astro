@@ -1,0 +1,411 @@
+---
+// Business Intelligence Tracking Component
+// Advanced tracking for business metrics and conversions
+---
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Track business-specific metrics for Indo Bintang Rezki
+
+    // 1. Track export product inquiries
+    document.addEventListener('click', function (e) {
+      const productLink = e.target.closest('[data-product-category], [data-export-product]');
+      if (productLink) {
+        const category = productLink.getAttribute('data-product-category') || 'unknown';
+        const product = productLink.getAttribute('data-export-product') || 'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('export_inquiry_initiated', {
+            product_category: category,
+            product_name: product,
+            inquiry_source: 'product_listing',
+            user_location: 'indonesia', // Could be enhanced with geolocation
+          });
+        }
+      }
+    });
+
+    // 2. Track commodity market interest
+    document.addEventListener('click', function (e) {
+      const marketLink = e.target.closest('[data-commodity], [data-market]');
+      if (marketLink) {
+        const commodity = marketLink.getAttribute('data-commodity') || 'unknown';
+        const market = marketLink.getAttribute('data-market') || 'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('commodity_market_interest', {
+            commodity_type: commodity,
+            target_market: market,
+            interaction_type: 'information_request',
+          });
+        }
+      }
+    });
+
+    // 3. Track quality standard inquiries
+    document.addEventListener('click', function (e) {
+      const qualityLink = e.target.closest('[data-quality], [data-standard], [data-certification]');
+      if (qualityLink) {
+        const standard =
+          qualityLink.getAttribute('data-quality') ||
+          qualityLink.getAttribute('data-standard') ||
+          qualityLink.getAttribute('data-certification') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('quality_standard_inquiry', {
+            standard_type: standard,
+            business_area: 'export_compliance',
+            inquiry_priority: 'high',
+          });
+        }
+      }
+    });
+
+    // 4. Track B2B engagement metrics
+    let b2bEngagementTime = 0;
+    let b2bEngagementTimer = null;
+
+    function startB2BEngagementTimer() {
+      if (!b2bEngagementTimer) {
+        b2bEngagementTimer = setInterval(() => {
+          b2bEngagementTime++;
+        }, 1000);
+      }
+    }
+
+    function stopB2BEngagementTimer() {
+      if (b2bEngagementTimer) {
+        clearInterval(b2bEngagementTimer);
+        b2bEngagementTimer = null;
+
+        if (b2bEngagementTime > 30) {
+          // Only track if engagement > 30 seconds
+          if (window.trackCustomEvent) {
+            window.trackCustomEvent('b2b_engagement_session', {
+              engagement_duration_seconds: b2bEngagementTime,
+              page_url: window.location.href,
+              business_relevance: 'high',
+            });
+          }
+        }
+        b2bEngagementTime = 0;
+      }
+    }
+
+    // Track when user shows B2B interest signals
+    document.addEventListener('click', function (e) {
+      const b2bElement = e.target.closest(
+        '[data-b2b], .business-section, .export-services, .trade-info'
+      );
+      if (b2bElement) {
+        startB2BEngagementTimer();
+      }
+    });
+
+    // Stop tracking when user leaves
+    window.addEventListener('beforeunload', stopB2BEngagementTimer);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stopB2BEngagementTimer();
+      }
+    });
+
+    // 5. Track international market interest
+    const countryCodes = [
+      'US',
+      'CN',
+      'IN',
+      'JP',
+      'DE',
+      'GB',
+      'FR',
+      'KR',
+      'SG',
+      'MY',
+      'TH',
+      'VN',
+      'PH',
+    ];
+
+    document.addEventListener('click', function (e) {
+      const countryLink = e.target.closest('[data-country], [data-market-region]');
+      if (countryLink) {
+        const country =
+          countryLink.getAttribute('data-country') ||
+          countryLink.getAttribute('data-market-region') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('international_market_interest', {
+            target_country: country,
+            market_type: countryCodes.includes(country) ? 'export_target' : 'emerging_market',
+            business_potential: 'high',
+          });
+        }
+      }
+    });
+
+    // 6. Track trade documentation requests
+    document.addEventListener('click', function (e) {
+      const docLink = e.target.closest('[data-document], [data-trade-doc], [data-export-doc]');
+      if (docLink) {
+        const docType =
+          docLink.getAttribute('data-document') ||
+          docLink.getAttribute('data-trade-doc') ||
+          docLink.getAttribute('data-export-doc') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('trade_documentation_requested', {
+            document_type: docType,
+            request_context: 'export_preparation',
+            business_stage: 'information_gathering',
+          });
+        }
+      }
+    });
+
+    // 7. Track partnership and collaboration interest
+    document.addEventListener('click', function (e) {
+      const partnerLink = e.target.closest(
+        '[data-partnership], [data-collaboration], [data-joint-venture]'
+      );
+      if (partnerLink) {
+        const partnershipType =
+          partnerLink.getAttribute('data-partnership') ||
+          partnerLink.getAttribute('data-collaboration') ||
+          partnerLink.getAttribute('data-joint-venture') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('partnership_inquiry_initiated', {
+            partnership_type: partnershipType,
+            business_model: 'b2b_collaboration',
+            investment_level: 'strategic',
+          });
+        }
+      }
+    });
+
+    // 8. Track supply chain and logistics interest
+    document.addEventListener('click', function (e) {
+      const logisticsLink = e.target.closest(
+        '[data-logistics], [data-supply-chain], [data-shipping]'
+      );
+      if (logisticsLink) {
+        const logisticsType =
+          logisticsLink.getAttribute('data-logistics') ||
+          logisticsLink.getAttribute('data-supply-chain') ||
+          logisticsLink.getAttribute('data-shipping') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('logistics_inquiry_initiated', {
+            service_type: logisticsType,
+            business_need: 'export_operations',
+            urgency_level: 'medium',
+          });
+        }
+      }
+    });
+
+    // 9. Track regulatory and compliance interest
+    document.addEventListener('click', function (e) {
+      const complianceLink = e.target.closest(
+        '[data-regulatory], [data-compliance], [data-regulations]'
+      );
+      if (complianceLink) {
+        const regulationType =
+          complianceLink.getAttribute('data-regulatory') ||
+          complianceLink.getAttribute('data-compliance') ||
+          complianceLink.getAttribute('data-regulations') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('regulatory_compliance_inquiry', {
+            regulation_type: regulationType,
+            market_focus: 'international_trade',
+            compliance_need: 'export_readiness',
+          });
+        }
+      }
+    });
+
+    // 10. Track pricing and quotation requests
+    document.addEventListener('click', function (e) {
+      const pricingLink = e.target.closest('[data-pricing], [data-quotation], [data-quote]');
+      if (pricingLink) {
+        const requestType =
+          pricingLink.getAttribute('data-pricing') ||
+          pricingLink.getAttribute('data-quotation') ||
+          pricingLink.getAttribute('data-quote') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('pricing_quotation_requested', {
+            request_type: requestType,
+            business_intent: 'purchase_consideration',
+            sales_stage: 'early_interest',
+          });
+        }
+      }
+    });
+
+    // 11. Track industry-specific engagement
+    const industries = ['agriculture', 'food_beverage', 'manufacturing', 'retail', 'distribution'];
+
+    document.addEventListener('click', function (e) {
+      const industryLink = e.target.closest('[data-industry], [data-sector]');
+      if (industryLink) {
+        const industry =
+          industryLink.getAttribute('data-industry') ||
+          industryLink.getAttribute('data-sector') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('industry_engagement_tracked', {
+            target_industry: industry,
+            market_segment: industries.includes(industry) ? 'core_market' : 'emerging_sector',
+            engagement_depth: 'detailed_interest',
+          });
+        }
+      }
+    });
+
+    // 12. Track seasonal and trend-based interest
+    const currentSeason =
+      new Date().getMonth() >= 3 && new Date().getMonth() <= 9 ? 'peak_season' : 'off_season';
+
+    document.addEventListener('click', function (e) {
+      const seasonalLink = e.target.closest('[data-seasonal], [data-trending]');
+      if (seasonalLink) {
+        const trendType =
+          seasonalLink.getAttribute('data-seasonal') ||
+          seasonalLink.getAttribute('data-trending') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('seasonal_trend_interest', {
+            trend_type: trendType,
+            current_season: currentSeason,
+            market_timing: 'strategic',
+          });
+        }
+      }
+    });
+
+    // 13. Track competitive intelligence gathering
+    document.addEventListener('click', function (e) {
+      const competitiveLink = e.target.closest(
+        '[data-competitor], [data-market-analysis], [data-industry-report]'
+      );
+      if (competitiveLink) {
+        const intelligenceType =
+          competitiveLink.getAttribute('data-competitor') ||
+          competitiveLink.getAttribute('data-market-analysis') ||
+          competitiveLink.getAttribute('data-industry-report') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('competitive_intelligence_requested', {
+            intelligence_type: intelligenceType,
+            business_purpose: 'market_positioning',
+            strategic_value: 'high',
+          });
+        }
+      }
+    });
+
+    // 14. Track sustainability and certification interest
+    document.addEventListener('click', function (e) {
+      const sustainabilityLink = e.target.closest(
+        '[data-sustainability], [data-certification], [data-organic], [data-fair-trade]'
+      );
+      if (sustainabilityLink) {
+        const sustainabilityType =
+          sustainabilityLink.getAttribute('data-sustainability') ||
+          sustainabilityLink.getAttribute('data-certification') ||
+          sustainabilityLink.getAttribute('data-organic') ||
+          sustainabilityLink.getAttribute('data-fair-trade') ||
+          'unknown';
+
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('sustainability_certification_interest', {
+            certification_type: sustainabilityType,
+            market_requirement: 'export_eligibility',
+            brand_value: 'premium_positioning',
+          });
+        }
+      }
+    });
+
+    // 15. Track conversion funnel progression
+    let funnelStage = 'awareness';
+
+    function updateFunnelStage(newStage) {
+      if (newStage !== funnelStage) {
+        if (window.trackCustomEvent) {
+          window.trackCustomEvent('funnel_stage_progression', {
+            from_stage: funnelStage,
+            to_stage: newStage,
+            progression_time: new Date().toISOString(),
+            conversion_probability: calculateConversionProbability(newStage),
+          });
+        }
+        funnelStage = newStage;
+      }
+    }
+
+    function calculateConversionProbability(stage) {
+      const probabilities = {
+        awareness: 0.05,
+        interest: 0.15,
+        consideration: 0.35,
+        inquiry: 0.6,
+        negotiation: 0.8,
+        conversion: 1.0,
+      };
+      return probabilities[stage] || 0.05;
+    }
+
+    // Track funnel progression based on user behavior
+    document.addEventListener('click', function (e) {
+      const target = e.target;
+
+      if (target.closest('.hero, .intro')) {
+        updateFunnelStage('awareness');
+      } else if (target.closest('.features, .products, .services')) {
+        updateFunnelStage('interest');
+      } else if (target.closest('.pricing, .details, .specifications')) {
+        updateFunnelStage('consideration');
+      } else if (target.closest('.contact, .inquiry, .quote')) {
+        updateFunnelStage('inquiry');
+      }
+    });
+
+    // Initialize business tracking
+    if (window.trackCustomEvent) {
+      window.trackCustomEvent('business_tracking_initialized', {
+        tracking_capabilities: [
+          'export_inquiry_tracking',
+          'commodity_interest_tracking',
+          'quality_standard_tracking',
+          'b2b_engagement_tracking',
+          'international_market_tracking',
+          'trade_documentation_tracking',
+          'partnership_tracking',
+          'logistics_tracking',
+          'regulatory_tracking',
+          'pricing_tracking',
+          'industry_tracking',
+          'seasonal_tracking',
+          'competitive_tracking',
+          'sustainability_tracking',
+          'conversion_funnel_tracking',
+        ],
+        initialization_timestamp: new Date().toISOString(),
+      });
+    }
+  });
+</script>

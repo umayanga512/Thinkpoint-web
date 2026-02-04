@@ -1,0 +1,18 @@
+---
+import Container from '@components/container.astro';
+import Hero from '@components/hero.astro';
+import Layout from '@layouts/Layout.astro';
+import AboutSection from '@components/about-section.astro';
+import ContactSection from '@components/contact-section.astro';
+
+// SEO Metadata for Home page
+const pageTitle = 'IBR';
+const pageDescription =
+  'Indo Bintang Rezki is your trusted partner for Indonesian commodities and trade solutions. We connect domestic producers with international markets, ensuring quality and reliability at every step.';
+---
+
+<Layout title={pageTitle} description={pageDescription} ogType="website">
+  <Hero />
+  <AboutSection />
+  <ContactSection />
+</Layout>

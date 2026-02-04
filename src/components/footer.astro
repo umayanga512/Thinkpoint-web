@@ -1,0 +1,145 @@
+---
+interface Footer7Props {
+  logo?: {
+    url: string;
+    src: string;
+    alt: string;
+    title: string;
+  };
+  className?: string;
+  sections?: Array<{
+    title: string;
+    links: Array<{ name: string; href: string }>;
+  }>;
+  description?: string;
+  copyright?: string;
+  legalLinks?: Array<{
+    name: string;
+    href: string;
+  }>;
+}
+
+const defaultSections = [
+  {
+    title: "Product",
+    links: [
+      { name: "Overview", href: "#" },
+      { name: "Pricing", href: "#" },
+      { name: "Marketplace", href: "#" },
+      { name: "Features", href: "#" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { name: "About", href: "#" },
+      { name: "Team", href: "#" },
+      { name: "Blog", href: "#" },
+      { name: "Careers", href: "#" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { name: "Help", href: "#" },
+      { name: "Sales", href: "#" },
+      { name: "Advertise", href: "#" },
+      { name: "Privacy", href: "#" },
+    ],
+  },
+];
+
+const {
+  logo = {
+    url: "https://www.thinkpoint.lk",
+    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+    alt: "logo",
+    title: "ThinkPoint",
+  },
+  sections = defaultSections,
+  description = "A collection of components for your startup business or side project.",
+  copyright = "© 2026 ThinkPoint. All rights reserved.",
+  legalLinks = [
+    { name: "Terms and Conditions", href: "#" },
+    { name: "Privacy Policy", href: "#" },
+  ],
+  className = "",
+} = Astro.props;
+
+// Simple cn utility function replacement
+function cn(...classes: (string | undefined | false | null)[]) {
+  return classes.filter(Boolean).join(" ");
+}
+---
+4
+<section class={cn("pt-12 md:pt-16 pb-0", className)}>
+  <div class="container">
+    <div class="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
+      <div class="flex w-full flex-col justify-between gap-6 lg:items-start">
+        <!-- Logo -->
+        <div class="flex items-center gap-2 lg:justify-start">
+          <a href={logo.url}>
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              title={logo.title}
+              class="h-8"
+              width="32"
+              height="32"
+              loading="lazy"
+            />
+          </a>
+          <h2 class="text-xl font-semibold">{logo.title}</h2>
+        </div>
+        <p class="max-w-[70%] text-sm text-muted-foreground">
+          {description}
+        </p>
+        <!-- Social Links Slot -->
+        <ul class="flex items-center space-x-6 text-muted-foreground">
+          <slot name="social-links">
+            <!-- Default social links will be rendered here if no slot content provided -->
+          </slot>
+        </ul>
+      </div>
+      <div class="grid w-full gap-6 md:grid-cols-3 lg:gap-20">
+        {sections.map((section, sectionIdx) => (
+          <div key={sectionIdx}>
+            <h3 class="mb-4 font-bold">{section.title}</h3>
+            <ul class="space-y-3 text-sm text-muted-foreground">
+              {section.links.map((link, linkIdx) => (
+                <li
+                  key={linkIdx}
+                  class="font-medium hover:text-primary transition-colors"
+                >
+                  <a href={link.href}>{link.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="mt-8 flex flex-col justify-between gap-4 border-t pt-8 pb-4 text-xs font-medium text-muted-foreground md:flex-row md:items-center md:text-left">
+      <p class="order-2 lg:order-1">{copyright}</p>
+      <ul class="order-1 flex flex-col gap-2 md:order-2 md:flex-row">
+        {legalLinks.map((link, idx) => (
+          <li key={idx} class="hover:text-primary transition-colors">
+            <a href={link.href}> {link.name}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .text-muted-foreground {
+    color: hsl(var(--muted-foreground));
+  }
+  .hover\:text-primary:hover {
+    color: hsl(var(--primary));
+  }
+  .transition-colors {
+    transition: color 0.2s ease;
+  }
+</style>

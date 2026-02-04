@@ -1,0 +1,157 @@
+---
+import { SEO } from 'astro-seo';
+import Footer from '@components/footer.astro';
+import Navbar from '@components/navbar/navbar.astro';
+import LoadingStates from '@components/loading-states.astro';
+import {
+  generateSeoConfig,
+  generateOrganizationStructuredData,
+  type SeoMetadata,
+} from '@utils/seo';
+import { generateOrganizationSchema, schemaToString } from '../utils/structuredData';
+import PostHog from '../components/posthog.astro';
+import BusinessTracking from '../components/business-tracking.astro';
+import { trackEvent, optInAnalytics, optOutAnalytics } from '../utils/analytics';
+
+export interface Props extends SeoMetadata {}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+const {
+  title,
+  description,
+  image,
+  ogType = 'website',
+  instagramUsername,
+  linkedinProfile,
+  articlePublishDate,
+  articleModifiedDate,
+  articleAuthor,
+} = Astro.props;
+
+// Generate SEO configuration from props
+const seoProps = generateSeoConfig(
+  {
+    title,
+    description,
+    image,
+    canonicalUrl: canonicalURL,
+    ogType,
+    instagramUsername,
+    linkedinProfile,
+    articlePublishDate,
+    articleModifiedDate,
+    articleAuthor,
+  },
+  Astro.site?.toString()
+);
+
+// Generate schema.org structured data
+const organizationStructuredData = generateOrganizationStructuredData();
+
+const structuredData = generateOrganizationSchema();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={canonicalURL} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Indo Bintang Rezki Blog"
+      href="/rss.xml"
+    />
+
+    <!-- SEO -->
+    <SEO {...seoProps} />
+
+    <!-- PostHog Analytics -->
+    <PostHog />
+
+    <!-- Business Intelligence Tracking -->
+    <BusinessTracking />
+
+    <!-- Critical Resource Preloads -->
+    <link rel="preload" href="/_astro/logo.BCbAOFAg_TBBlN.svg" as="image" type="image/svg+xml" />
+    <link rel="preload" href="/_astro/hero.CyxfcuVH.png" as="image" type="image/png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationStructuredData)} />
+    <script type="application/ld+json" set:html={schemaToString(structuredData)} />
+  </head>
+  <body class="bg-[#DFF5E9]">
+    <Navbar />
+    <slot />
+    <Footer />
+
+    <!-- Global Loading States Component -->
+    <LoadingStates />
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {
+              console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch((error) => {
+              console.error('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+
+    <!-- Analytics Functions Global Availability -->
+    <script>
+      // Make analytics functions globally available for client-side usage
+      import { trackEvent, optInAnalytics, optOutAnalytics } from '../utils/analytics';
+
+      if (typeof window !== 'undefined') {
+        window.trackEvent = trackEvent;
+        window.optInAnalytics = optInAnalytics;
+        window.optOutAnalytics = optOutAnalytics;
+      }
+    </script>
+
+    <style is:global>
+      /* Improve Page speed */
+      /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+      img {
+        content-visibility: auto;
+      }
+
+      /* Responsive base styles */
+      html,
+      body {
+        overflow-x: hidden;
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      /* Prevent text size adjustment on orientation change in iOS */
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      /* Improve touch experience on mobile */
+      @media (max-width: 768px) {
+        button,
+        a {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+    </style>
+  </body>
+</html>

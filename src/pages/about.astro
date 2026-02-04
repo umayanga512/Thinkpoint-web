@@ -1,0 +1,309 @@
+---
+import { getCollection } from 'astro:content';
+import { Picture, Image } from 'astro:assets';
+import Layout from '@layouts/Layout.astro';
+import Container from '@components/container.astro';
+import Sectionhead from '@components/sectionhead.astro';
+import { Icon } from 'astro-icon/components';
+
+// Import images from available assets
+import aboutHeroImage from '../assets/hero-ship.png';
+import indonesiaMapImage from '../assets/about-what-wedo.jpg';
+
+// Filter team entries with 'draft: false' & date before current date
+const publishedTeamMembers = await getCollection('team', ({ data }) => {
+  return !data.draft && data.publishDate < new Date();
+});
+
+// Company stats
+const stats = [
+  {
+    number: '20+',
+    label: 'Years Experience',
+    icon: 'carbon:growth',
+  },
+  {
+    number: '7',
+    label: 'Countries Served',
+    icon: 'carbon:globe',
+  },
+  {
+    number: '10+',
+    label: 'Clients Worldwide',
+    icon: 'carbon:partnership',
+  },
+  {
+    number: '1000+',
+    label: 'Shipments Completed',
+    icon: 'carbon:delivery',
+  },
+];
+
+// Core values
+const values = [
+  {
+    title: 'Integrity',
+    description: 'We conduct business with honesty, transparency and ethical standards.',
+    icon: 'carbon:certificate',
+  },
+  {
+    title: 'Excellence',
+    description: 'We strive for the highest quality in everything we do.',
+    icon: 'carbon:star',
+  },
+  {
+    title: 'Reliability',
+    description: 'We deliver on our promises and build trust through consistency.',
+    icon: 'carbon:task-complete',
+  },
+  {
+    title: 'Innovation',
+    description: 'We continuously seek better ways to serve our clients and partners.',
+    icon: 'carbon:idea',
+  },
+];
+
+// Client testimonials
+const testimonials = [
+  {
+    quote:
+      'Indo Bintang Rezki has been our trusted supplier for over 20 years. Their commitment to quality and on-time delivery has been exceptional.',
+    author: 'Sarah Johnson',
+    position: 'Procurement Director',
+    company: 'Apikal, India',
+  },
+  {
+    quote:
+      'Working with IBR has streamlined our supply chain significantly. Their knowledge of Indonesian regulations and markets is unmatched.',
+    author: 'Duy Nguyen',
+    position: 'International Trade Manager',
+    company: 'HD Food Export, Vietnam',
+  },
+  {
+    quote:
+      'The team at Indo Bintang Rezki consistently goes above and beyond to ensure our specific requirements are met. A truly reliable partner.',
+    author: 'Raj Patel',
+    position: 'CEO',
+    company: 'Spice Traders International, India',
+  },
+];
+
+// SEO Metadata for About page
+const pageTitle = 'About Us';
+const pageDescription =
+  'Learn about Indo Bintang Rezki, a leading Indonesian trading company with decades of industry expertise. Discover our team, values, and global presence in commodity export and distribution.';
+---
+
+<Layout title={pageTitle} description={pageDescription} ogType="company">
+  <!-- Hero Section -->
+  <div class="relative bg-gradient-to-b from-[#DFF5E9]/50 to-[#DFF5E9] py-8">
+    <Container>
+      <Sectionhead>
+        <Fragment slot="title">About Indo Bintang Rezki</Fragment>
+        <Fragment slot="desc">Your trusted trade partner in Indonesia since 2003</Fragment>
+      </Sectionhead>
+
+      <div class="mx-auto mt-12 grid max-w-4xl gap-10 md:grid-cols-2">
+        <div class="flex flex-col justify-center">
+          <h2 class="mb-4 text-3xl font-bold text-gray-800">Our Story</h2>
+          <p class="mb-6 text-lg leading-relaxed text-slate-600">
+            Indo Bintang Rezki was founded with a vision to bridge international markets with
+            Indonesia's rich natural resources and commodities.
+          </p>
+          <p class="text-lg leading-relaxed text-slate-600">
+            For over two decades, we've built a reputation for reliability, quality, and excellence
+            in commodity trading across Southeast Asia and beyond.
+          </p>
+        </div>
+        <div class="relative">
+          <div class="absolute inset-0 rotate-3 transform rounded-xl bg-black/10"></div>
+          <Image
+            src={aboutHeroImage}
+            alt="Indo Bintang Rezki team"
+            class="relative z-10 h-full w-full rounded-xl object-cover shadow-lg"
+            width={720}
+            height={480}
+            loading="eager"
+            decode="async"
+            formats={['webp', 'avif', 'jpg']}
+          />
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <!-- What We Do Section -->
+  <Container>
+    <div class="mx-auto grid max-w-4xl gap-10 py-16 md:grid-cols-2">
+      <div class="relative">
+        <div class="absolute inset-0 -rotate-2 transform rounded-xl bg-black/10"></div>
+        <Image
+          src={indonesiaMapImage}
+          alt="Indonesia Map - Our Business Coverage"
+          class="relative z-10 h-full w-full rounded-xl object-cover shadow-lg"
+          width={1600}
+          height={2133}
+          loading="eager"
+          decode="async"
+          formats={['webp', 'avif', 'jpg']}
+        />
+      </div>
+      <div class="flex flex-col justify-center">
+        <h2 class="mb-4 text-3xl font-bold text-gray-800">What We Do</h2>
+        <p class="mb-4 text-lg leading-relaxed text-slate-600">
+          We're an import-export commodity trading company headquartered in Jakarta, Indonesia, with
+          a branch office in Medan, North Sumatra that operates as a warehouse and distribution
+          center.
+        </p>
+        <p class="text-lg leading-relaxed text-slate-600">
+          With over 20 years of experience in Indonesia's commodity trading industry, our team has
+          broad knowledge of local market trends, consumer behavior, and customs regulations.
+        </p>
+        <div class="mt-6">
+          <h3 class="mb-2 text-xl font-semibold text-gray-800">Our Expertise</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2">
+              <Icon name="carbon:checkmark-filled" class="h-5 w-5 text-green-600" />
+              <span>International commodity sourcing and trading</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <Icon name="carbon:checkmark-filled" class="h-5 w-5 text-green-600" />
+              <span>Supply chain management and logistics</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <Icon name="carbon:checkmark-filled" class="h-5 w-5 text-green-600" />
+              <span>Quality control and certification</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <Icon name="carbon:checkmark-filled" class="h-5 w-5 text-green-600" />
+              <span>Export documentation and compliance</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Stats Section -->
+  <div class="bg-[#DFF5E9]/30 py-16">
+    <Container>
+      <h2 class="mb-12 text-center text-3xl font-bold text-gray-800">Our Impact by the Numbers</h2>
+      <div class="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4">
+        {
+          stats.map((stat) => (
+            <div class="flex flex-col items-center text-center">
+              <div class="mb-4 rounded-full bg-white p-4 shadow-md">
+                <Icon name={stat.icon} class="h-8 w-8 text-gray-800" />
+              </div>
+              <h3 class="text-4xl font-bold text-gray-800">{stat.number}</h3>
+              <p class="text-slate-600">{stat.label}</p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </div>
+
+  <!-- Core Values Section -->
+  <Container>
+    <div class="mx-auto max-w-4xl py-16">
+      <h2 class="mb-4 text-center text-3xl font-bold text-gray-800">Our Core Values</h2>
+      <p class="mx-auto mb-12 max-w-3xl text-center text-lg text-slate-600">
+        These principles guide everything we do and define how we work with our clients, partners,
+        and communities.
+      </p>
+
+      <div class="grid gap-8 md:grid-cols-2">
+        {
+          values.map((value) => (
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="rounded-lg bg-[#DFF5E9] p-3">
+                  <Icon name={value.icon} class="h-6 w-6 text-gray-800" />
+                </div>
+                <div>
+                  <h3 class="mb-2 text-xl font-semibold text-gray-800">{value.title}</h3>
+                  <p class="text-slate-600">{value.description}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+
+  <!-- Testimonials Section -->
+  <div class="bg-[#DFF5E9]/30 py-16">
+    <Container>
+      <div class="mx-auto max-w-4xl">
+        <h2 class="mb-4 text-center text-3xl font-bold text-gray-800">What Our Clients Say</h2>
+        <p class="mx-auto mb-12 max-w-3xl text-center text-lg text-slate-600">
+          We're proud to have built long-lasting relationships with clients around the world.
+        </p>
+
+        <div class="grid gap-8 md:grid-cols-3">
+          {
+            testimonials.map((testimonial, index) => (
+              <div class="relative rounded-xl bg-white p-6 shadow-md">
+                {/* Quote icon */}
+                <div class="absolute -left-4 -top-4 rounded-full bg-[#DFF5E9] p-3 shadow-sm">
+                  <Icon name="carbon:quotes" class="h-6 w-6 text-gray-800" />
+                </div>
+
+                {/* Testimonial content */}
+                <div class="pt-4">
+                  <p class="mb-6 italic text-slate-600">"{testimonial.quote}"</p>
+                  <div class="border-t border-gray-100 pt-4">
+                    <p class="font-semibold text-gray-800">{testimonial.author}</p>
+                    <p class="text-sm text-slate-500">{testimonial.position}</p>
+                    <p class="text-sm text-slate-500">{testimonial.company}</p>
+                  </div>
+                </div>
+
+                {/* Decorative elements */}
+                <div
+                  class={`absolute -bottom-2 -right-2 h-12 w-12 rounded-full bg-[#DFF5E9]/60 opacity-${70 - index * 10}`}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <!-- Global Presence -->
+  <div class="bg-white py-16">
+    <Container>
+      <div class="mx-auto max-w-4xl text-center">
+        <h2 class="mb-4 text-3xl font-bold text-gray-800">Our Global Presence</h2>
+        <p class="mb-8 text-lg text-slate-600">
+          Our team comprises business professionals with substantial experience in international
+          trade across multiple markets including:
+        </p>
+
+        <div class="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
+          {
+            ['Australia', 'Indonesia', 'Thailand', 'Vietnam', 'India', 'Pakistan', 'UAE'].map(
+              (country) => (
+                <div class="rounded-full border border-[#DFF5E9]/50 bg-[#DFF5E9]/30 px-4 py-2 shadow-sm">
+                  <span class="font-medium">{country}</span>
+                </div>
+              )
+            )
+          }
+        </div>
+
+        <div class="mt-12">
+          <a
+            href="mailto:hello@indobintangrezki.com"
+            class="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-white transition-colors hover:bg-gray-800">
+            <Icon name="carbon:email" class="h-5 w-5" />
+            <span>Contact Our Team</span>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </div>
+</Layout>

@@ -1,0 +1,321 @@
+---
+// Blog Search Component with Loading States
+---
+
+<div class="blog-search-container mb-8">
+  <div class="relative mx-auto max-w-md">
+    <div class="relative">
+      <input
+        type="text"
+        id="blog-search"
+        placeholder="Search articles..."
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 pl-12 pr-4 text-gray-700 transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+      <!-- Loading spinner -->
+      <div id="search-loading" class="absolute inset-y-0 right-0 flex hidden items-center pr-4">
+        <svg
+          class="h-5 w-5 animate-spin text-blue-500"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+      </div>
+      <!-- Clear button -->
+      <button
+        id="clear-search"
+        class="absolute inset-y-0 right-0 flex hidden items-center pr-4 text-gray-400 transition-colors hover:text-gray-600"
+        aria-label="Clear search">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Search suggestions/filters -->
+    <div class="mt-3 flex flex-wrap gap-2">
+      <span class="text-sm text-gray-500">Quick filters:</span>
+      <button
+        class="search-filter rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 transition-colors hover:bg-blue-100 hover:text-blue-600"
+        data-category="all">
+        All
+      </button>
+      <button
+        class="search-filter rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 transition-colors hover:bg-blue-100 hover:text-blue-600"
+        data-category="Market Analysis">
+        Market Analysis
+      </button>
+      <button
+        class="search-filter rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 transition-colors hover:bg-blue-100 hover:text-blue-600"
+        data-category="Export Guide">
+        Export Guide
+      </button>
+      <button
+        class="search-filter rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 transition-colors hover:bg-blue-100 hover:text-blue-600"
+        data-category="Product Focus">
+        Product Focus
+      </button>
+    </div>
+  </div>
+
+  <!-- Search results count -->
+  <div id="search-results-count" class="mt-4 hidden text-center text-sm text-gray-500">
+    <span id="results-text"></span>
+  </div>
+
+  <!-- No results message -->
+  <div id="no-results" class="mt-8 hidden text-center">
+    <div class="mx-auto max-w-md">
+      <svg
+        class="mx-auto h-12 w-12 text-gray-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0120 12a8 8 0 10-16 0 8 8 0 002 5.291z"
+        ></path>
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No articles found</h3>
+      <p class="mt-1 text-sm text-gray-500">
+        Try adjusting your search terms or browse all articles.
+      </p>
+      <button
+        id="show-all-results"
+        class="mt-3 inline-flex items-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-200">
+        Show all articles
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Blog search functionality with loading states
+  class BlogSearch {
+    constructor() {
+      this.searchInput = document.getElementById('blog-search');
+      this.loadingSpinner = document.getElementById('search-loading');
+      this.clearButton = document.getElementById('clear-search');
+      this.resultsCount = document.getElementById('search-results-count');
+      this.resultsText = document.getElementById('results-text');
+      this.noResults = document.getElementById('no-results');
+      this.showAllButton = document.getElementById('show-all-results');
+      this.filterButtons = document.querySelectorAll('.search-filter');
+
+      this.blogPosts = [];
+      this.filteredPosts = [];
+      this.currentFilter = 'all';
+      this.searchTimeout = null;
+
+      this.init();
+    }
+
+    init() {
+      this.collectBlogPosts();
+      this.bindEvents();
+      this.updateResultsCount();
+    }
+
+    collectBlogPosts() {
+      // Collect all blog post elements from the page
+      const blogElements = document.querySelectorAll('main ul li');
+      this.blogPosts = Array.from(blogElements).map((element) => {
+        const titleElement = element.querySelector('h2');
+        const categoryElement = element.querySelector('.text-blue-400');
+        const authorElement = element.querySelector('.text-gray-400');
+
+        return {
+          element: element,
+          title: titleElement?.textContent?.toLowerCase() || '',
+          category: categoryElement?.textContent?.toLowerCase() || '',
+          author: authorElement?.textContent?.toLowerCase() || '',
+          visible: true,
+        };
+      });
+      this.filteredPosts = [...this.blogPosts];
+    }
+
+    bindEvents() {
+      // Search input events
+      this.searchInput.addEventListener('input', (e) => {
+        this.handleSearch(e.target.value);
+      });
+
+      this.searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          this.clearSearch();
+        }
+      });
+
+      // Clear button
+      this.clearButton.addEventListener('click', () => {
+        this.clearSearch();
+      });
+
+      // Show all button
+      this.showAllButton.addEventListener('click', () => {
+        this.clearSearch();
+      });
+
+      // Filter buttons
+      this.filterButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          this.handleFilter(e.target.dataset.category);
+          this.updateFilterButtons(e.target);
+        });
+      });
+    }
+
+    handleSearch(query) {
+      // Clear previous timeout
+      if (this.searchTimeout) {
+        clearTimeout(this.searchTimeout);
+      }
+
+      // Show loading state
+      this.showLoading(true);
+      this.updateClearButton(query.length > 0);
+
+      // Debounce search
+      this.searchTimeout = setTimeout(() => {
+        this.performSearch(query);
+        this.showLoading(false);
+      }, 300);
+    }
+
+    performSearch(query) {
+      const searchTerm = query.toLowerCase().trim();
+
+      this.filteredPosts = this.blogPosts.filter((post) => {
+        const matchesSearch =
+          !searchTerm ||
+          post.title.includes(searchTerm) ||
+          post.category.includes(searchTerm) ||
+          post.author.includes(searchTerm);
+
+        const matchesFilter =
+          this.currentFilter === 'all' || post.category.includes(this.currentFilter.toLowerCase());
+
+        return matchesSearch && matchesFilter;
+      });
+
+      this.updateDisplay();
+      this.updateResultsCount();
+    }
+
+    handleFilter(category) {
+      this.currentFilter = category;
+      const currentQuery = this.searchInput.value;
+      this.performSearch(currentQuery);
+    }
+
+    updateDisplay() {
+      this.blogPosts.forEach((post) => {
+        const isVisible = this.filteredPosts.includes(post);
+        post.element.style.display = isVisible ? 'block' : 'none';
+        post.visible = isVisible;
+      });
+
+      // Show/hide no results message
+      const hasResults = this.filteredPosts.length > 0;
+      this.noResults.classList.toggle('hidden', hasResults);
+    }
+
+    updateResultsCount() {
+      const total = this.blogPosts.length;
+      const visible = this.filteredPosts.length;
+
+      if (visible === total) {
+        this.resultsCount.classList.add('hidden');
+      } else {
+        this.resultsCount.classList.remove('hidden');
+        this.resultsText.textContent = `Showing ${visible} of ${total} articles`;
+      }
+    }
+
+    updateFilterButtons(activeButton) {
+      this.filterButtons.forEach((button) => {
+        button.classList.remove('bg-blue-100', 'text-blue-600');
+        button.classList.add('bg-gray-100', 'text-gray-600');
+      });
+
+      activeButton.classList.remove('bg-gray-100', 'text-gray-600');
+      activeButton.classList.add('bg-blue-100', 'text-blue-600');
+    }
+
+    showLoading(show) {
+      this.loadingSpinner.classList.toggle('hidden', !show);
+    }
+
+    updateClearButton(show) {
+      this.clearButton.classList.toggle('hidden', !show);
+    }
+
+    clearSearch() {
+      this.searchInput.value = '';
+      this.currentFilter = 'all';
+      this.filteredPosts = [...this.blogPosts];
+      this.updateDisplay();
+      this.updateResultsCount();
+      this.updateClearButton(false);
+      this.showLoading(false);
+
+      // Reset filter buttons
+      this.filterButtons.forEach((button) => {
+        button.classList.remove('bg-blue-100', 'text-blue-600');
+        button.classList.add('bg-gray-100', 'text-gray-600');
+      });
+      this.filterButtons[0]?.classList.remove('bg-gray-100', 'text-gray-600');
+      this.filterButtons[0]?.classList.add('bg-blue-100', 'text-blue-600');
+
+      this.searchInput.focus();
+    }
+  }
+
+  // Initialize search when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new BlogSearch();
+  });
+</script>
+
+<style>
+  .search-filter.active {
+    @apply bg-blue-100 text-blue-600;
+  }
+
+  .blog-search-container {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
