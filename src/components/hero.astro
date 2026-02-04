@@ -6,34 +6,56 @@ interface Props {
 const { className } = Astro.props;
 ---
 
-<section class={`py-16 md:py-20 ${className || ''}`}>
-  <div class="container">
-    <div class="z-10 mx-auto flex max-w-4xl flex-col items-center gap-10 md:gap-12 text-center">
+<section class={`relative py-10 md:py-16 overflow-hidden ${className || ''}`}>
+  <!-- Subtle background pattern -->
+  <div class="absolute inset-0 bg-gradient-to-b from-amber-50/50 via-white to-amber-50/30"></div>
+  
+  <!-- Decorative elements -->
+  <div class="absolute top-20 right-10 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl"></div>
+  <div class="absolute bottom-20 left-10 w-96 h-96 bg-yellow-200/15 rounded-full blur-3xl"></div>
+  
+  <div class="container relative z-10">
+    <div class="mx-auto flex max-w-5xl flex-col items-center gap-8 md:gap-10">
 
-      
-      <div>
-        <h1 class="mb-4 text-3xl font-medium text-pretty lg:text-6xl">
-          Build Exceptional Online Experiences
+      <!-- Hero Content -->
+      <div class="space-y-6 text-center">
+        <!-- Eyebrow text -->
+        <div class="inline-flex items-center gap-2 rounded-full bg-amber-100/80 px-4 py-1.5 text-sm font-medium text-amber-900 backdrop-blur-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+          </span>
+          Limited spots available this month
+        </div>
+        
+        <h1 class="text-4xl font-semibold tracking-tight text-amber-950 lg:text-7xl text-balance leading-[1.1]">
+          Where focus meets
+          <span class="block bg-gradient-to-r from-amber-700 to-yellow-600 bg-clip-text text-transparent mt-2">
+            possibility
+          </span>
         </h1>
-        <p class="mx-auto max-w-xl text-muted-foreground">
+        
+        <p class="mx-auto max-w-2xl text-lg text-amber-900/70 leading-relaxed">
           Create a website that captures attention, drives engagement, and
-          aligns with your goals, all in a matter of days.
+          aligns perfectly with your goals—all in a matter of days.
         </p>
       </div>
       
-      <div class="flex w-full flex-col items-center justify-center gap-6 lg:flex-row">
-        <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 w-full sm:w-fit">
+      <!-- CTA Section -->
+      <div class="flex w-full flex-col items-center justify-center gap-8 lg:flex-row lg:gap-6">
+        <!-- Primary CTA -->
+        <button class="group inline-flex items-center justify-center whitespace-nowrap rounded-full text-xs font-semibold transition-all duration-300 bg-gradient-to-r from-amber-600 to-amber-700 text-white hover:from-amber-700 hover:to-amber-800 hover:shadow-lg hover:shadow-amber-500/25 active:scale-[0.98] h-9 px-5 w-full sm:w-auto">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            width="16" 
-            height="16" 
+            width="10" 
+            height="10" 
             viewBox="0 0 24 24" 
             fill="none" 
             stroke="currentColor" 
             stroke-width="2" 
             stroke-linecap="round" 
             stroke-linejoin="round" 
-            class="mr-2 h-4 w-4"
+            class="mr-2.5 h-5 w-5 transition-transform group-hover:scale-110"
           >
             <path d="M8 2v4" />
             <path d="M16 2v4" />
@@ -43,51 +65,112 @@ const { className } = Astro.props;
           Get Started Today
         </button>
         
-        <div class="flex flex-col items-center gap-2 lg:items-start">
-          <span class="inline-flex items-center -space-x-1">
-            <div class="relative flex size-7 shrink-0 overflow-hidden rounded-full border">
+      </div>
+      
+      <!-- Social Proof -->
+      <div class="flex flex-col items-center gap-4 lg:flex-row lg:gap-8">
+        <div class="flex items-center gap-4">
+          <span class="inline-flex items-center -space-x-2">
+            <div class="relative flex size-10 shrink-0 overflow-hidden rounded-full border-2 border-white shadow-sm ring-2 ring-amber-200/50">
               <img 
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-1.webp" 
-                alt="placeholder"
-                class="aspect-square h-full w-full"
+                alt="Customer testimonial"
+                class="aspect-square h-full w-full object-cover"
               />
             </div>
-            <div class="relative flex size-7 shrink-0 overflow-hidden rounded-full border">
+            <div class="relative flex size-10 shrink-0 overflow-hidden rounded-full border-2 border-white shadow-sm ring-2 ring-amber-200/50">
               <img 
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-6.webp" 
-                alt="placeholder"
-                class="aspect-square h-full w-full"
+                alt="Customer testimonial"
+                class="aspect-square h-full w-full object-cover"
               />
             </div>
-            <div class="relative flex size-7 shrink-0 overflow-hidden rounded-full border">
+            <div class="relative flex size-10 shrink-0 overflow-hidden rounded-full border-2 border-white shadow-sm ring-2 ring-amber-200/50">
               <img 
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-3.webp" 
-                alt="placeholder"
-                class="aspect-square h-full w-full"
+                alt="Customer testimonial"
+                class="aspect-square h-full w-full object-cover"
               />
             </div>
-            <div class="relative flex size-7 shrink-0 overflow-hidden rounded-full border">
+            <div class="relative flex size-10 shrink-0 overflow-hidden rounded-full border-2 border-white shadow-sm ring-2 ring-amber-200/50">
               <img 
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp" 
-                alt="placeholder"
-                class="aspect-square h-full w-full"
+                alt="Customer testimonial"
+                class="aspect-square h-full w-full object-cover"
               />
             </div>
+            <div class="relative flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-amber-100 shadow-sm ring-2 ring-amber-200/50">
+              <span class="text-xs font-semibold text-amber-900">+50</span>
+            </div>
           </span>
-          <p class="text-xs text-muted-foreground">
-            Trusted by industry leaders
-          </p>
+          
+          <div class="flex flex-col items-start">
+            <div class="flex items-center gap-1">
+              <svg 
+                class="h-4 w-4 fill-amber-500" 
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg 
+                class="h-4 w-4 fill-amber-500" 
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg 
+                class="h-4 w-4 fill-amber-500" 
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg 
+                class="h-4 w-4 fill-amber-500" 
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg 
+                class="h-4 w-4 fill-amber-500" 
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </div>
+            <p class="text-sm font-medium text-amber-900">
+              5.0 from 50+ reviews
+            </p>
+          </div>
         </div>
+        
+        <div class="hidden lg:block h-10 w-px bg-amber-200"></div>
+        
+        <p class="text-sm text-amber-900/70">
+          Trusted by industry leaders worldwide
+        </p>
       </div>
     </div>
     
-    <img
-      src="src/assets/pexels-mart-production-7255420.jpg"
-      alt="placeholder"
-      class="mx-auto mt-12 md:mt-16 aspect-video max-h-[700px] w-full max-w-7xl rounded-t-lg object-cover shadow-md"
-      loading="lazy"
-      width="1280"
-      height="720"
-    />
+    <!-- Hero Image with enhanced styling -->
+    <div class="relative mt-8 md:mt-12">
+      <!-- Decorative border/shadow -->
+      <div class="absolute -inset-4 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 rounded-2xl blur-2xl"></div>
+      
+      <img
+        src="src/assets/pexels-mart-production-7255420.jpg"
+        alt="Modern workspace showcasing our design philosophy"
+        class="relative mx-auto aspect-video max-h-[700px] w-full max-w-7xl rounded-2xl object-cover shadow-2xl shadow-amber-900/20 ring-1 ring-amber-900/10"
+        loading="lazy"
+        width="1280"
+        height="720"
+      />
+      
+      <!-- Floating badge -->
+      <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-full px-6 py-3 shadow-lg shadow-amber-900/10 ring-1 ring-amber-900/5">
+        <p class="text-sm font-semibold text-amber-900">
+          ⚡ Fast delivery in 3-5 days
+        </p>
+      </div>
+    </div>
   </div>
 </section>
