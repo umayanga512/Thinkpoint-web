@@ -17,48 +17,48 @@ const publishedTeamMembers = await getCollection('team', ({ data }) => {
 // Company stats
 const stats = [
   {
-    number: '20+',
-    label: 'Years Experience',
-    icon: 'carbon:growth',
-  },
-  {
-    number: '7',
-    label: 'Countries Served',
-    icon: 'carbon:globe',
-  },
-  {
-    number: '10+',
-    label: 'Clients Worldwide',
+    number: '500+',
+    label: 'Active Members',
     icon: 'carbon:partnership',
   },
   {
-    number: '1000+',
-    label: 'Shipments Completed',
-    icon: 'carbon:delivery',
+    number: '24/7',
+    label: 'Access Available',
+    icon: 'carbon:time',
+  },
+  {
+    number: '50+',
+    label: 'Study Desks',
+    icon: 'carbon:workspace',
+  },
+  {
+    number: '100%',
+    label: 'High-Speed WiFi',
+    icon: 'carbon:wifi',
   },
 ];
 
 // Core values
 const values = [
   {
-    title: 'Integrity',
-    description: 'We conduct business with honesty, transparency and ethical standards.',
-    icon: 'carbon:certificate',
-  },
-  {
-    title: 'Excellence',
-    description: 'We strive for the highest quality in everything we do.',
-    icon: 'carbon:star',
-  },
-  {
-    title: 'Reliability',
-    description: 'We deliver on our promises and build trust through consistency.',
+    title: 'Focus',
+    description: 'Dedicated quiet zones designed for deep work and concentration.',
     icon: 'carbon:task-complete',
   },
   {
-    title: 'Innovation',
-    description: 'We continuously seek better ways to serve our clients and partners.',
-    icon: 'carbon:idea',
+    title: 'Community',
+    description: 'Connect with like-minded students and freelancers in a collaborative environment.',
+    icon: 'carbon:partnership',
+  },
+  {
+    title: 'Comfort',
+    description: 'Ergonomic furniture, climate control, and premium amenities for your productivity.',
+    icon: 'carbon:star',
+  },
+  {
+    title: 'Flexibility',
+    description: 'Choose from daily passes, monthly memberships, or flexible booking options.',
+    icon: 'carbon:calendar',
   },
 ];
 
@@ -66,26 +66,26 @@ const values = [
 const testimonials = [
   {
     quote:
-      'Indo Bintang Rezki has been our trusted supplier for over 20 years. Their commitment to quality and on-time delivery has been exceptional.',
-    author: 'Sarah Johnson',
-    position: 'Procurement Director',
+      'ThinkPoint has been a game-changer for my freelance work. The quiet environment and fast WiFi help me stay productive throughout the day.',
+    author: 'Kavindu Perera',
+    position: 'Freelance Developer',
     company: 'Nugegoda, Sri Lanka',
     rating: 5,
   },
   {
     quote:
-      'Working with IBR has streamlined our supply chain significantly. Their knowledge of Indonesian regulations and markets is unmatched.',
-    author: 'Duy Nguyen',
-    position: 'International Trade Manager',
-    company: 'HD Food Export, Vietnam',
+      'As a medical student, finding a quiet place to study was always challenging. ThinkPoint provides the perfect environment for focused studying.',
+    author: 'Sanduni Fernando',
+    position: 'Medical Student',
+    company: 'University of Colombo',
     rating: 5,
   },
   {
     quote:
-      'The team at Indo Bintang Rezki consistently goes above and beyond to ensure our specific requirements are met. A truly reliable partner.',
-    author: 'Raj Patel',
-    position: 'CEO',
-    company: 'Spice Traders International, India',
+      'The community at ThinkPoint is amazing! I\'ve met so many talented people and even found collaboration opportunities for my startup.',
+    author: 'Ashen Silva',
+    position: 'Entrepreneur',
+    company: 'Tech Startup Founder',
     rating: 5,
   },
 ];
@@ -106,13 +106,13 @@ const testimonials = [
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
           </span>
-          Since 2003
+          Opening Soon
         </div>
         <h1 class="text-4xl md:text-6xl font-bold text-amber-950 mb-4 tracking-tight">
           About <span class="bg-gradient-to-r from-amber-700 to-yellow-600 bg-clip-text text-transparent">ThinkPoint</span>
         </h1>
         <p class="text-xl text-amber-900/70 max-w-2xl mx-auto">
-          Your trusted trade partner in Indonesia for over two decades
+          A productive workspace in Nugegoda for students and freelancers
         </p>
       </div>
 
@@ -122,12 +122,12 @@ const testimonials = [
             <h2 class="text-3xl md:text-4xl font-bold text-amber-950 mb-6">Our Story</h2>
             <div class="space-y-4">
               <p class="text-lg leading-relaxed text-amber-900/80">
-                Indo Bintang Rezki was founded with a vision to bridge international markets with
-                Indonesia's rich natural resources and commodities.
+                ThinkPoint was created with a vision to provide students and freelancers in Nugegoda
+                with a dedicated space to work, study, and think without distractions.
               </p>
               <p class="text-lg leading-relaxed text-amber-900/80">
-                For over two decades, we've built a reputation for reliability, quality, and excellence
-                in commodity trading across Southeast Asia and beyond.
+                We understand the challenges of finding a productive environment, which is why we've
+                designed ThinkPoint to be more than just a space—it's a community of focused individuals.
               </p>
             </div>
           </div>
@@ -135,12 +135,12 @@ const testimonials = [
           <!-- Quick highlights -->
           <div class="grid grid-cols-2 gap-4 pt-4">
             <div class="bg-gradient-to-br from-amber-50 to-yellow-50/50 rounded-2xl p-5 border border-amber-200/40">
-              <div class="text-3xl font-bold text-amber-700 mb-1">20+</div>
-              <div class="text-sm text-amber-900/70">Years of Excellence</div>
+              <div class="text-3xl font-bold text-amber-700 mb-1">50+</div>
+              <div class="text-sm text-amber-900/70">Study Spaces</div>
             </div>
             <div class="bg-gradient-to-br from-amber-50 to-yellow-50/50 rounded-2xl p-5 border border-amber-200/40">
-              <div class="text-3xl font-bold text-amber-700 mb-1">1000+</div>
-              <div class="text-sm text-amber-900/70">Successful Shipments</div>
+              <div class="text-3xl font-bold text-amber-700 mb-1">24/7</div>
+              <div class="text-sm text-amber-900/70">Access Available</div>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@ const testimonials = [
             <Picture
               src={aboutHeroImage}
               formats={['avif', 'webp']}
-              alt="Indo Bintang Rezki team"
+              alt="ThinkPoint study space"
               class="relative z-10 w-full rounded-3xl object-cover shadow-2xl shadow-amber-900/20 ring-1 ring-amber-900/10"
               loading="lazy"
               width={671}
@@ -168,8 +168,8 @@ const testimonials = [
                   <Icon name="carbon:certificate" class="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p class="text-sm font-semibold text-amber-900">Certified Excellence</p>
-                  <p class="text-xs text-amber-900/60">ISO 9001:2015</p>
+                  <p class="text-sm font-semibold text-amber-900">Premium Workspace</p>
+                  <p class="text-xs text-amber-900/60">Members Only</p>
                 </div>
               </div>
             </div>
@@ -213,13 +213,12 @@ const testimonials = [
             <h2 class="text-3xl md:text-4xl font-bold text-amber-950 mb-6">What We Do</h2>
             <div class="space-y-4">
               <p class="text-lg leading-relaxed text-amber-900/80">
-                We're an import-export commodity trading company headquartered in Jakarta, Indonesia, with
-                a branch office in Medan, North Sumatra that operates as a warehouse and distribution
-                center.
+                ThinkPoint is a modern study centre located in the heart of Nugegoda, designed specifically
+                for students and freelancers who need a distraction-free environment to focus on their work.
               </p>
               <p class="text-lg leading-relaxed text-amber-900/80">
-                With over 20 years of experience in Indonesia's commodity trading industry, our team has
-                broad knowledge of local market trends, consumer behavior, and customs regulations.
+                We offer a range of membership options, from daily passes to monthly subscriptions,
+                providing the flexibility you need to work on your schedule.
               </p>
             </div>
           </div>
@@ -227,32 +226,32 @@ const testimonials = [
           <div class="bg-gradient-to-br from-amber-50 to-yellow-50/50 rounded-2xl p-6 border border-amber-200/40">
             <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
               <Icon name="carbon:star-filled" class="h-5 w-5 text-amber-600" />
-              Our Expertise
+              Our Amenities
             </h3>
             <ul class="space-y-3">
               <li class="flex items-start gap-3 group">
                 <div class="mt-0.5 bg-amber-600 rounded-full p-1 group-hover:scale-110 transition-transform">
                   <Icon name="carbon:checkmark" class="h-3 w-3 text-white" />
                 </div>
-                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">International commodity sourcing and trading</span>
+                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">High-speed fiber optic WiFi</span>
               </li>
               <li class="flex items-start gap-3 group">
                 <div class="mt-0.5 bg-amber-600 rounded-full p-1 group-hover:scale-110 transition-transform">
                   <Icon name="carbon:checkmark" class="h-3 w-3 text-white" />
                 </div>
-                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">Supply chain management and logistics</span>
+                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">Quiet study zones and collaboration areas</span>
               </li>
               <li class="flex items-start gap-3 group">
                 <div class="mt-0.5 bg-amber-600 rounded-full p-1 group-hover:scale-110 transition-transform">
                   <Icon name="carbon:checkmark" class="h-3 w-3 text-white" />
                 </div>
-                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">Quality control and certification</span>
+                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">Complimentary coffee and refreshments</span>
               </li>
               <li class="flex items-start gap-3 group">
                 <div class="mt-0.5 bg-amber-600 rounded-full p-1 group-hover:scale-110 transition-transform">
                   <Icon name="carbon:checkmark" class="h-3 w-3 text-white" />
                 </div>
-                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">Export documentation and compliance</span>
+                <span class="text-amber-900/80 group-hover:text-amber-900 transition-colors">Printing and scanning facilities</span>
               </li>
             </ul>
           </div>
@@ -266,9 +265,9 @@ const testimonials = [
     <Container>
       <div class="mx-auto max-w-6xl">
         <div class="text-center mb-8">
-          <h2 class="text-3xl md:text-4xl font-bold text-amber-950 mb-4">What Our Clients Say</h2>
+          <h2 class="text-3xl md:text-4xl font-bold text-amber-950 mb-4">What Our Members Say</h2>
           <p class="text-xl text-amber-900/70 max-w-3xl mx-auto">
-            We're proud to have built long-lasting relationships with clients around the world.
+            Hear from students and freelancers who have made ThinkPoint their productive workspace.
           </p>
         </div>
 

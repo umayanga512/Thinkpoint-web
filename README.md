@@ -1,6 +1,6 @@
-# Indo Bintang Rezki - Astro Website
+# ThinkPoint - Astro Website
 
-Modern, SEO-optimized website built with Astro, TailwindCSS, and headless CMS integration.
+Modern, SEO-optimized website for ThinkPoint Study Centre built with Astro and TailwindCSS.
 
 ## 🚀 Features
 
@@ -32,8 +32,8 @@ Modern, SEO-optimized website built with Astro, TailwindCSS, and headless CMS in
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ibr-web.git
-cd ibr-web
+git clone https://github.com/your-username/thinkpoint-web.git
+cd thinkpoint-web
 
 # Install dependencies
 bun install
@@ -246,8 +246,8 @@ Push to GitHub
 
 ### Deployment Channels
 
-- **Production**: `main` branch → https://indobintangrezki.com
-- **Preview**: All other branches → `https://[branch].ibr-web.pages.dev`
+- **Production**: `main` branch → https://thinkpoint.lk
+- **Preview**: All other branches → `https://[branch].thinkpoint-web.pages.dev`
 
 ### Environment Variables
 
@@ -276,7 +276,7 @@ Push to GitHub
 
 ```bash
 # List recent deployments
-bunx wrangler pages deployment list --project-name=ibr-web
+bunx wrangler pages deployment list --project-name=thinkpoint-web
 
 # Rollback to specific deployment
 bunx wrangler pages deployment rollback <deployment-id>
@@ -322,8 +322,8 @@ bun run deploy                 # Runs full CI, then deploys if passing
 **Emergency rollback:**
 
 ```bash
-bunx wrangler pages deployment list --project-name=ibr-web        # List deployments
-bunx wrangler pages deployment rollback <id> --project-name=ibr-web  # Rollback
+bunx wrangler pages deployment list --project-name=thinkpoint-web        # List deployments
+bunx wrangler pages deployment rollback <id> --project-name=thinkpoint-web  # Rollback
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed developer workflow.

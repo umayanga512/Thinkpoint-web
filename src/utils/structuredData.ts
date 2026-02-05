@@ -14,8 +14,8 @@ export function generateOrganizationSchema(data: OrganizationData = {}) {
     url = SITE_URL,
     logo = `${SITE_URL}/images/logo.png`,
     sameAs = [
-      'https://www.instagram.com/indobintangrezki',
-      'https://www.linkedin.com/company/indobintangrezki',
+      'https://www.instagram.com/thinkpoint',
+      'https://www.linkedin.com/company/thinkpoint',
     ],
   } = data;
 
@@ -55,7 +55,7 @@ export function generateArticleSchema(post: { data: BlogEntryData; slug: string 
   const authorName =
     typeof data.author === 'object' && data.author?.data?.name
       ? data.author.data.name
-      : 'Indo Bintang Rezki';
+      : 'ThinkPoint';
 
   // Handle different image formats
   let imageUrl = `${SITE_URL}/images/blog-default.jpg`;

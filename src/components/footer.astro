@@ -308,7 +308,10 @@ function cn(...classes: (string | undefined | false | null)[]) {
     
     // Newsletter form submission (example)
     const newsletterForm = document.querySelector('input[type="email"]');
-    const subscribeButton = document.querySelector('button:has-text("Subscribe")');
+    // Fix: Use proper selector instead of Playwright's :has-text()
+    const subscribeButton = Array.from(document.querySelectorAll('button')).find(
+      button => button.textContent.trim() === 'Subscribe'
+    );
     
     if (subscribeButton && newsletterForm) {
       subscribeButton.addEventListener('click', (e) => {

@@ -14,16 +14,16 @@ export interface SeoMetadata {
 }
 
 const defaultSeoConfig = {
-  title: 'Indo Bintang Rezki',
-  titleTemplate: '%s | Trusted Indonesian Partner',
-  defaultTitle: 'Indo Bintang Rezki - Indonesian Trading Company',
+  title: 'ThinkPoint',
+  titleTemplate: '%s | ThinkPoint Study Centre',
+  defaultTitle: 'ThinkPoint - Study Centre in Nugegoda',
   description:
-    'Indo Bintang Rezki is a leading Indonesian commodity trading company connecting domestic producers with international markets. We provide reliable supply chain solutions with a focus on quality and sustainability.',
+    'ThinkPoint is a study centre venture in Nugegoda - a physical spot where students and freelancers can come to work, study, and think. Experience a productive environment designed for focused work and collaboration.',
   defaultImage: '/opengraph.png',
-  siteName: 'Indo Bintang Rezki',
-  siteUrl: 'https://indobintangrezki.com',
-  instagramUsername: 'indobintangrezki',
-  linkedinProfile: 'company/indobintangrezki',
+  siteName: 'ThinkPoint',
+  siteUrl: 'https://thinkpoint.lk',
+  instagramUsername: 'thinkpoint',
+  linkedinProfile: 'company/thinkpoint',
   locale: 'en_US',
 };
 
@@ -85,7 +85,7 @@ export function generateSeoConfig(
         { name: 'theme-color', content: '#DFF5E9' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
-        { name: 'author', content: 'Indo Bintang Rezki' },
+        { name: 'author', content: 'ThinkPoint' },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:see_also', content: `https://www.instagram.com/${instagramUsername}` },
         { property: 'og:see_also', content: `https://www.linkedin.com/${linkedinProfile}` },
@@ -122,7 +122,7 @@ export function generateArticleStructuredData(metadata: SeoMetadata, url: string
       metadata.articleModifiedDate?.toISOString() || metadata.articlePublishDate?.toISOString(),
     author: {
       '@type': 'Person',
-      name: metadata.articleAuthor || 'Indo Bintang Rezki',
+      name: metadata.articleAuthor || 'ThinkPoint',
     },
     publisher: {
       '@type': 'Organization',

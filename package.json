@@ -1,5 +1,5 @@
 {
-  "name": "ibr-web",
+  "name": "thinkpoint-web",
   "type": "module",
   "version": "0.0.2",
   "private": true,
@@ -36,9 +36,9 @@
     "ci:performance": "bun run test && bun run lighthouse",
     "ci:security": "bun run security:scan",
     "ci": "bun run ci:quality && bun run ci:performance && bun run ci:security",
-    "deploy:cloudflare": "bunx wrangler pages deploy dist --project-name=ibr-web",
-    "deploy:production": "bunx wrangler pages deploy dist --project-name=ibr-web --branch=main",
-    "deploy:preview": "bunx wrangler pages deploy dist --project-name=ibr-web",
+    "deploy:cloudflare": "bunx wrangler pages deploy dist --project-name=thinkpoint-web",
+    "deploy:production": "bunx wrangler pages deploy dist --project-name=thinkpoint-web --branch=main",
+    "deploy:preview": "bunx wrangler pages deploy dist --project-name=thinkpoint-web",
     "deploy": "bun run ci && bun run deploy:production"
   },
   "dependencies": {
@@ -61,14 +61,14 @@
     "astro-navbar": "^2.4.0",
     "astro-seo": "^0.8.4",
     "framer-motion": "^12.23.22",
-    "ibr-web": ".",
+    "thinkpoint-web": ".",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "sharp": "^0.34.4",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "^12.6.9",
+    "@astrojs/cloudflare": "^12.6.12",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@eslint/js": "^9.36.0",
@@ -102,7 +102,7 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^3.4.18",
     "tailwindcss-animate": "^1.0.7",
-    "wrangler": "^4.41.0"
+    "wrangler": "^4.62.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
