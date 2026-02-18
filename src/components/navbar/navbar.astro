@@ -3,45 +3,17 @@ interface Navbar5Props {
   className?: string;
 }
 
+
+import logo from '../../assets/logo.svg';
+
 const { className = "" } = Astro.props;
 
-const features = [
-  {
-    title: "Dashboard",
-    description: "Overview of your activity",
-    href: "#",
-    icon: "📊",
-  },
-  {
-    title: "Analytics",
-    description: "Track your performance",
-    href: "#",
-    icon: "📈",
-  },
-  {
-    title: "Settings",
-    description: "Configure your preferences",
-    href: "#",
-    icon: "⚙️",
-  },
-  {
-    title: "Integrations",
-    description: "Connect with other tools",
-    href: "#",
-    icon: "🔗",
-  },
-  {
-    title: "Storage",
-    description: "Manage your files",
-    href: "#",
-    icon: "💾",
-  },
-  {
-    title: "Support",
-    description: "Get help when needed",
-    href: "#",
-    icon: "💬",
-  },
+const navLinks = [
+  { label: 'Home', href: '/#home' },
+  { label: 'About Us', href: '/#about' },
+   { label: 'What We Do', href: '/#what-we-do' },
+  { label: 'Contact Us', href: '/#contact' },
+ 
 ];
 
 function cn(...classes: (string | undefined | false)[]) {
@@ -66,59 +38,16 @@ function cn(...classes: (string | undefined | false)[]) {
     <nav class="bg-white/80 backdrop-blur-xl border border-amber-200/60 rounded-2xl shadow-lg shadow-amber-900/5 px-4 md:px-6 py-3 transition-all duration-300">
       <div class="flex items-center justify-between">
         <!-- Logo -->
+        <!-- Logo -->
         <a href="/" class="flex items-center gap-2 group">
-          <div class="relative">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-lg blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
-            <div class="relative bg-gradient-to-br from-amber-600 to-amber-700 p-2 rounded-lg">
-              
-            </div>
-          </div>
-          <span class="text-xl font-bold bg-gradient-to-r from-amber-900 to-amber-700 bg-clip-text text-transparent">
-            ThinkPoint
-          </span>
+          <img src={logo.src} alt="ThinkPoint Logo" class="h-7 w-auto" />
         </a>
 
         <!-- Desktop Nav -->
         <div class="hidden lg:flex items-center gap-1">
-          <!-- Features Dropdown -->
-          <div class="relative group">
-            <button class="flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium text-amber-900 hover:text-amber-700 hover:bg-amber-50/50 rounded-xl transition-all">
-              Features
-              <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            <!-- Mega menu -->
-            <div class="absolute left-0 top-full mt-2 w-[620px] bg-white/95 backdrop-blur-xl border border-amber-200/60 rounded-2xl shadow-2xl shadow-amber-900/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-y-2 group-hover:translate-y-0">
-              <div class="absolute -top-2 left-8 w-4 h-4 bg-white border-l border-t border-amber-200/60 rotate-45"></div>
-
-              <div class="grid grid-cols-2 gap-2 p-4">
-                {features.map((feature) => (
-                  <a
-                    href={feature.href}
-                    class="group rounded-xl p-4 hover:bg-gradient-to-br hover:from-amber-50 hover:to-yellow-50/50 border border-transparent hover:border-amber-200/40 transition"
-                  >
-                    <div class="flex gap-3">
-                      <span class="text-2xl group-hover:scale-110 transition">
-                        {feature.icon}
-                      </span>
-                      <div>
-                        <p class="font-semibold text-amber-900">{feature.title}</p>
-                        <p class="text-sm text-amber-800/60">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <a href="#products" class="nav-link">Products</a>
-          <a href="#resources" class="nav-link">Resources</a>
-          <a href="#contact" class="nav-link">Contact</a>
+          {navLinks.map(link => (
+            <a href={link.href} class="nav-link">{link.label}</a>
+          ))}
         </div>
 
         <!-- Desktop CTA -->
@@ -142,19 +71,13 @@ function cn(...classes: (string | undefined | false)[]) {
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="lg:hidden hidden">
     <div class="container mt-4">
-      <div class="bg-white border border-amber-200 rounded-2xl p-6">
-        {features.map((feature) => (
+      <div class="bg-white border border-amber-200 rounded-2xl p-4 flex flex-col gap-2">
+        {navLinks.map((link) => (
           <a
-            href={feature.href}
-            class="block rounded-xl p-3 hover:bg-amber-50 transition"
+            href={link.href}
+            class="block rounded-xl p-3 hover:bg-amber-50 transition text-amber-900 font-medium"
           >
-            <div class="flex gap-3">
-              <span class="text-xl">{feature.icon}</span>
-              <div>
-                <p class="font-semibold text-amber-900 text-sm">{feature.title}</p>
-                <p class="text-xs text-amber-800/60">{feature.description}</p>
-              </div>
-            </div>
+            {link.label}
           </a>
         ))}
       </div>
