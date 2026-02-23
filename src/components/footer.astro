@@ -25,7 +25,7 @@ const defaultSections = [
     links: [
       { name: "Home", href: "/#home" },
       { name: "About Us", href: "/#about" },
-      { name: "What We Do", href: "/#what-we-do" },
+      { name: "Core Offer", href: "/#core-offer" },
       { name: "Contact Us", href: "/#contact" },
     ],
   },
@@ -63,10 +63,10 @@ function cn(...classes: (string | undefined | false | null)[]) {
 import logoImg from '../assets/logo.svg';
 ---
 
-<section class={cn("relative pt-8 pb-4 bg-gradient-to-b from-white via-amber-50/30 to-amber-100/40 overflow-hidden", className)}>
+<section class={cn("relative pt-8 pb-4 bg-gradient-to-b from-primary-50 via-primary-50/30 to-primary-100/40 overflow-hidden", className)}>
   <!-- Background decorative elements -->
-  <div class="absolute top-0 left-0 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-  <div class="absolute bottom-0 right-0 w-96 h-96 bg-yellow-200/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+  <div class="absolute top-0 left-0 w-96 h-96 bg-primary-200/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary-100/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
   
   <div class="container relative z-10">
     <!-- Main Footer Content -->
@@ -78,27 +78,27 @@ import logoImg from '../assets/logo.svg';
         <div class="flex items-center gap-2.5">
           <a href={logo.url} class="group flex items-center gap-2.5">
             <img src={logoImg.src} alt={logo.alt} class="h-10 w-auto" />
-            <h2 class="text-2xl font-bold bg-gradient-to-r from-amber-900 to-amber-700 bg-clip-text text-transparent">
+            <h2 class="text-2xl font-serif font-bold bg-gradient-to-r from-primary-900 to-primary-700 bg-clip-text text-transparent">
               {logo.title}
             </h2>
           </a>
         </div>
         
         <!-- Description -->
-        <p class="text-base text-amber-900/70 leading-relaxed">
+        <p class="font-sans text-base text-primary-900/70 leading-relaxed">
           {description}
         </p>
         
         <!-- Newsletter Signup -->
         <div class="space-y-3">
-          <p class="text-sm font-semibold text-amber-900">Stay updated</p>
+          <p class="font-sans text-sm font-semibold text-primary-900">Stay updated</p>
           <div class="flex gap-2">
             <input 
               type="email" 
               placeholder="Enter your email" 
-              class="flex-1 px-4 py-2.5 text-sm bg-white border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 transition-all placeholder:text-amber-900/40"
+              class="font-sans flex-1 px-4 py-2.5 text-sm bg-primary-50/80 border border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all placeholder:text-primary-900/40"
             />
-            <button class="px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 text-white text-sm font-semibold rounded-xl hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-md shadow-amber-500/25 hover:shadow-lg hover:shadow-amber-500/35 active:scale-95">
+            <button class="font-sans px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 shadow-md shadow-primary-500/25 hover:shadow-lg hover:shadow-primary-500/35 active:scale-95">
               Subscribe
             </button>
           </div>
@@ -109,20 +109,20 @@ import logoImg from '../assets/logo.svg';
       <!-- Links Grid -->
       <div class="grid w-full gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
         {sections.map((section, sectionIdx) => (
-          <div key={sectionIdx} class="space-y-4">
-            <h3 class="text-sm font-bold text-amber-900 uppercase tracking-wider">
+          <div class="space-y-4">
+            <h3 class="font-sans text-sm font-bold text-primary-900 uppercase tracking-wider">
               {section.title}
             </h3>
             <ul class="space-y-3">
               {section.links.map((link, linkIdx) => (
-                <li key={linkIdx}>
+                <li>
                   <a 
                     href={link.href}
-                    class="group inline-flex items-center text-sm text-amber-900/70 hover:text-amber-700 transition-all duration-200"
+                    class="font-sans group inline-flex items-center text-sm text-primary-900/70 hover:text-primary-700 transition-all duration-200"
                   >
                     <span class="relative">
                       {link.name}
-                      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300"></span>
+                      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300"></span>
                     </span>
                     <svg class="w-3.5 h-3.5 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -137,28 +137,28 @@ import logoImg from '../assets/logo.svg';
     </div>
     
     <!-- Divider -->
-    <div class="mt-8 mb-6 h-px bg-gradient-to-r from-transparent via-amber-200 to-transparent"></div>
+    <div class="mt-8 mb-6 h-px bg-gradient-to-r from-transparent via-primary-200 to-transparent"></div>
     
     <!-- Bottom Bar -->
     <div class="flex flex-col-reverse gap-4 items-center justify-between md:flex-row">
       <!-- Copyright -->
       <div class="flex flex-col items-center gap-2 md:flex-row md:gap-4">
-        <p class="text-sm text-amber-900/60 font-medium">
+        <p class="font-sans text-sm text-primary-900/60 font-medium">
           {copyright}
         </p>
-        <div class="hidden md:block w-px h-4 bg-amber-200"></div>
-        <p class="text-xs text-amber-900/50">
-          Made with ❤️ in Sri Lanka
+        <div class="hidden md:block w-px h-4 bg-primary-200"></div>
+        <p class="font-sans text-xs text-primary-900/50">
+          Developed by Qrius Global
         </p>
       </div>
       
       <!-- Legal Links -->
       <ul class="flex items-center gap-6">
         {legalLinks.map((link, idx) => (
-          <li key={idx}>
+          <li>
             <a 
               href={link.href}
-              class="text-sm text-amber-900/60 hover:text-amber-700 transition-colors duration-200 font-medium"
+              class="font-sans text-sm text-primary-900/60 hover:text-primary-700 transition-colors duration-200 font-medium"
             >
               {link.name}
             </a>

@@ -26,16 +26,28 @@ const {
     <div class="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:gap-12">
       <div class="mx-auto flex max-w-sm flex-col gap-10">
         <div class="text-center lg:text-left">
-          <h1 class="mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl">
+          <h1 class="font-serif mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl text-primary-950">
             {title}
           </h1>
-          <p class="text-gray-600 dark:text-gray-400">{description}</p>
+          <p class="font-sans text-gray-600 dark:text-gray-400">{description}</p>
         </div>
         <div class="mx-auto w-fit lg:mx-0">
-          <h3 class="mb-6 text-center text-2xl font-semibold lg:text-left">
+          <h3 class="font-serif mb-6 text-center text-2xl font-semibold lg:text-left text-primary-950">
             Contact Details
           </h3>
-          <ul class="ml-4 list-disc">
+          <ul class="font-sans ml-4 list-disc space-y-2">
+            <li>
+              <span class="font-bold">Location: </span>
+              Next to NSB in Nugegoda
+            </li>
+            <li>
+              <span class="font-bold">Opening Hours: </span>
+              9am - 9pm (7 days a week)
+            </li>
+            <li>
+              <span class="font-bold">Business: </span>
+              ThinkPoint Educational Services Pvt Ltd
+            </li>
             <li>
               <span class="font-bold">Phone: </span>
               {phone}
@@ -60,40 +72,40 @@ const {
           </ul>
         </div>
       </div>
-      
-      <div class="mx-auto flex w-full lg:w-[40vw] flex-col rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 shadow-sm">
-        <form method="POST" class="space-y-1">
-          <div class="flex flex-col sm:flex-row gap-4">
-            <div class="grid w-full items-center gap-1.5">
-              <label 
-                for="firstname" 
-                class="font-medium text-gray-700 dark:text-gray-300"
-              >
-                First Name
+      <!-- Contact Form -->
+      <div class="mx-auto flex w-full lg:w-[40vw] flex-col rounded-lg border border-primary-200 bg-primary-100/50 p-6 shadow-sm">
+        <h2 class="text-2xl font-serif font-bold text-primary-950 mb-2">Send us a message</h2>
+        <p class="text-sm font-sans text-primary-900/80 mb-6">
+          We'll get back to you within 24 hours.
+        </p>
+
+        <form class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-1.5">
+              <label for="firstName" class="block text-sm font-sans font-medium text-primary-900">
+                First Name <span class="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                id="firstname"
-                name="firstname"
-                placeholder="First Name"
+                id="firstName"
+                name="firstName"
                 required
-                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="w-full px-3 py-2 border border-primary-300 rounded-md bg-primary-50/80 text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
             <div class="grid w-full items-center gap-1.5">
               <label 
-                for="lastname" 
-                class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                for="lastName" 
+                class="font-sans text-sm font-medium text-primary-900"
               >
                 Last Name
               </label>
               <input
                 type="text"
-                id="lastname"
-                name="lastname"
-                placeholder="Last Name"
+                id="lastName"
+                name="lastName"
                 required
-                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="w-full px-3 py-2 border border-primary-300 rounded-md bg-primary-50/80 text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -101,7 +113,7 @@ const {
           <div class="grid w-full items-center gap-1.5">
             <label 
               for="email" 
-              class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              class="font-sans text-sm font-medium text-primary-900"
             >
               Email
             </label>
@@ -111,14 +123,14 @@ const {
               name="email"
               placeholder="Email"
               required
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-3 py-2 border border-primary-300 rounded-md bg-primary-50/80 text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
           
           <div class="grid w-full items-center gap-1.5">
             <label 
               for="subject" 
-              class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              class="font-sans text-sm font-medium text-primary-900"
             >
               Subject
             </label>
@@ -128,14 +140,14 @@ const {
               name="subject"
               placeholder="Subject"
               required
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-3 py-2 border border-primary-300 rounded-md bg-primary-50/80 text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
           
           <div class="grid w-full gap-1.5">
             <label 
               for="message" 
-              class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              class="font-sans text-sm font-medium text-primary-900"
             >
               Message
             </label>
@@ -145,13 +157,13 @@ const {
               placeholder="Type your message here."
               rows="4"
               required
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              class="w-full px-3 py-2 border border-primary-300 rounded-md bg-primary-50/80 text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
             ></textarea>
           </div>
           
           <button
             type="submit"
-            class="w-full px-4 py-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:ring-offset-2 shadow-lg shadow-amber-500/25 hover:shadow-xl hover:shadow-amber-500/35"
+            class="font-sans w-full px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:ring-offset-2 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/35"
           >
             Send Message
           </button>

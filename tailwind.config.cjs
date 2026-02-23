@@ -24,6 +24,10 @@ module.exports = {
           DEFAULT: tokens.colors.secondary[500],
           ...tokens.colors.secondary,
         },
+        accent: {
+          DEFAULT: tokens.colors.accent[500],
+          ...tokens.colors.accent,
+        },
         dark: {
           DEFAULT: tokens.colors.dark[700],
           ...tokens.colors.dark,

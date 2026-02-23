@@ -1,7 +1,7 @@
 // Site metadata for SEO, RSS and social media
 export const SITE_TITLE = 'ThinkPoint';
 export const SITE_DESCRIPTION =
-  'ThinkPoint is a study centre venture in Nugegoda - a physical spot where students and freelancers can come to work, study, and think. Experience a productive environment designed for focused work and collaboration.';
+  'ThinkPoint is a dedicated sanctuary for deep work and intellectual clarity. We offer premium, silent environments engineered for sustained focus, featuring ergonomic furniture, high-speed connectivity, and an organic design inspired by nature. Open to all walks of life, we believe the right to think deeply is fundamental.';
 export const SITE_URL = 'https://thinkpoint.lk';
 export const SITE_LOCALE = 'en-US';
 

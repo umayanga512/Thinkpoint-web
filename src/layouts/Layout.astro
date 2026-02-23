@@ -60,7 +60,7 @@ const structuredData = generateOrganizationSchema();
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
     />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png?v=3" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="canonical" href={canonicalURL} />
@@ -70,6 +70,11 @@ const structuredData = generateOrganizationSchema();
       title="ThinkPoint Blog"
       href="/rss.xml"
     />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
     <!-- SEO -->
     <SEO {...seoProps} />
@@ -87,7 +92,7 @@ const structuredData = generateOrganizationSchema();
     <script type="application/ld+json" set:html={JSON.stringify(organizationStructuredData)} />
     <script type="application/ld+json" set:html={schemaToString(structuredData)} />
   </head>
-  <body class="bg-amber-50">
+  <body class="bg-primary-50 text-gray-900 font-sans antialiased">
     <Navbar />
     <slot />
     <Footer />
