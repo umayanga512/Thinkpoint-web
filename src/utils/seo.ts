@@ -18,8 +18,8 @@ const defaultSeoConfig = {
   titleTemplate: '%s | ThinkPoint Study Centre',
   defaultTitle: 'ThinkPoint - Study Centre in Nugegoda',
   description:
-    'ThinkPoint is a study centre venture in Nugegoda - a physical spot where students and freelancers can come to work, study, and think. Experience a productive environment designed for focused work and collaboration.',
-  defaultImage: '/opengraph.png',
+    'ThinkPoint is a dedicated sanctuary for deep work and intellectual clarity. We offer premium, silent environments engineered for sustained focus, featuring ergonomic furniture, high-speed connectivity, and an organic design inspired by nature. Open to all walks of life, we believe the right to think deeply is fundamental.',
+  defaultImage: '/og-image.png',
   siteName: 'ThinkPoint',
   siteUrl: 'https://thinkpoint.lk',
   instagramUsername: 'thinkpoint',
@@ -71,8 +71,8 @@ export function generateSeoConfig(
       },
       image: {
         alt: resolvedTitle,
-        width: 1200,
-        height: 630,
+        width: 516,
+        height: 508,
       },
       optional: {
         siteName: defaultSeoConfig.siteName,
@@ -82,7 +82,7 @@ export function generateSeoConfig(
     },
     extend: {
       meta: [
-        { name: 'theme-color', content: '#DFF5E9' },
+        { name: 'theme-color', content: '#FDF9F0' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
         { name: 'author', content: 'ThinkPoint' },

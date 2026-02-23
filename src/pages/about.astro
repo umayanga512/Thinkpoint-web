@@ -7,8 +7,8 @@ import Sectionhead from '@components/sectionhead.astro';
 import { Icon } from 'astro-icon/components';
 
 // Import images from available assets
-import aboutHeroImage from '../assets/hero-ship.png';
-import indonesiaMapImage from '../assets/about-what-wedo.jpg';
+import aboutHeroImage from '../assets/pexels-mart-production-7255420.jpg';
+import indonesiaMapImage from '../assets/pexels-rdne-5922680.jpg';
 
 // Filter team entries with 'draft: false' & date before current date
 const publishedTeamMembers = await getCollection('team', ({ data }) => {
@@ -124,7 +124,6 @@ const pageDescription =
             width={720}
             height={480}
             loading="eager"
-            decode="async"
             formats={['webp', 'avif', 'jpg']}
           />
         </div>
@@ -144,7 +143,6 @@ const pageDescription =
           width={1600}
           height={2133}
           loading="eager"
-          decode="async"
           formats={['webp', 'avif', 'jpg']}
         />
       </div>

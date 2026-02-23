@@ -1,54 +1,52 @@
 ---
-// @ts-ignore
-import { Icon } from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 
 const features = [
   {
-    title: 'Bring Your Own Framework',
+    title: 'Radical Silence',
     description:
-      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
-    icon: 'bx:bxs-briefcase',
+      'A strict silence policy ensures your train of thought remains uninterrupted, allowing for deep, sustained focus.',
+    icon: 'carbon:volume-mute',
   },
   {
-    title: '100% Static HTML, No JS',
+    title: 'High-Speed Connectivity',
     description:
-      'Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.',
-    icon: 'bx:bxs-window-alt',
+      'Enterprise-grade Wi-Fi keeps you connected to your work without frustrating drops or slow load times.',
+    icon: 'carbon:wifi',
   },
   {
-    title: 'On-Demand Components',
+    title: 'Organic Focus',
     description:
-      'Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ',
-    icon: 'bx:bxs-data',
+      'Surrounded by natural tones, bamboo, cane, and greenery to reduce cognitive load and mental fatigue.',
+    icon: 'carbon:tree',
   },
   {
-    title: 'Broad Integration',
+    title: 'Ergonomic Comfort',
     description:
-      'Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.',
-    icon: 'bx:bxs-bot',
+      'Premium task chairs and spacious desks designed specifically for long sessions of uninterrupted work.',
+    icon: 'carbon:pedestrian-child',
   },
   {
-    title: 'SEO Enabled',
+    title: 'Disciplined Solitude',
     description:
-      'Automatic sitemaps, RSS feeds, pagination and collections take the pain out of SEO and syndication. It just works!',
-    icon: 'bx:bxs-file-find',
+      'A shared understanding among members that we are all here to focus, creating an atmosphere of productive energy.',
+    icon: 'carbon:user',
   },
   {
-    title: 'Community',
+    title: 'Flexible Access',
     description:
-      'Astro is an open source project powered by hundreds of contributors making thousands of individual contributions.',
-    icon: 'bx:bxs-user',
+      'Choose from daily passes, hourly slots, or dedicated monthly spots based on your specific focus needs.',
+    icon: 'carbon:time',
   },
 ];
 ---
 
 <div class="mt-16 md:mt-0">
-  <h2 class="text-4xl font-bold lg:text-5xl lg:tracking-tight">
-    Everything you need to start a website
+  <h2 class="text-4xl font-bold lg:text-5xl lg:tracking-tight font-serif text-primary-950">
+    Everything You Need to Do Your Best Work
   </h2>
-  <p class="mt-4 text-lg text-slate-600">
-    Astro comes batteries included. It takes the best parts of state-of-the-art tools and adds its
-    own innovations.
+  <p class="mt-4 text-lg text-primary-900/80 font-sans">
+    We've removed the friction from productivity. Every element of ThinkPoint is engineered to help you achieve flow state quickly and maintain it longer.
   </p>
 </div>
 
@@ -56,12 +54,12 @@ const features = [
   {
     features.map((item) => (
       <div class="flex items-start gap-4">
-        <div class="mt-1 h-8 w-8 shrink-0 rounded-full bg-black p-2">
-          <Icon class="text-white" name={item.icon} />
+        <div class="mt-1 flex h-10 w-10 items-center justify-center shrink-0 rounded-full bg-primary-100 border border-primary-200">
+          <Icon class="text-primary-700 h-5 w-5" name={item.icon} />
         </div>
         <div>
-          <h3 class="text-lg font-semibold">{item.title}</h3>{' '}
-          <p class="mt-2 leading-relaxed text-slate-500">{item.description}</p>
+          <h3 class="text-lg font-semibold font-serif text-primary-950">{item.title}</h3>
+          <p class="mt-2 leading-relaxed text-primary-900/70 text-sm">{item.description}</p>
         </div>
       </div>
     ))
