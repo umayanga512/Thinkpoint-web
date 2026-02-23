@@ -19,7 +19,7 @@ const defaultSeoConfig = {
   defaultTitle: 'ThinkPoint - Study Centre in Nugegoda',
   description:
     'ThinkPoint is a dedicated sanctuary for deep work and intellectual clarity. We offer premium, silent environments engineered for sustained focus, featuring ergonomic furniture, high-speed connectivity, and an organic design inspired by nature. Open to all walks of life, we believe the right to think deeply is fundamental.',
-  defaultImage: '/favicon.png',
+  defaultImage: '/og-image.png',
   siteName: 'ThinkPoint',
   siteUrl: 'https://thinkpoint.lk',
   instagramUsername: 'thinkpoint',
